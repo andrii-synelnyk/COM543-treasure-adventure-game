@@ -8,17 +8,17 @@ import java.util.Random;
 public class DungeonGenerator {
 
     private int initialArraySize;
-    private int[][] mazeArray;
-    private final List<int[]> listOfRooms = new ArrayList<>();
+    private int[][] dungeonMap;
+    private final List<int[]> listOfRoomsCoordinates = new ArrayList<>();
     private final Random random = new Random();
 
     public void generateDungeon(int roomsNeeded) {
 
         initialArraySize = roomsNeeded;
-        mazeArray = new int[initialArraySize][initialArraySize];
+        dungeonMap = new int[initialArraySize][initialArraySize];
 
-        // Initialize mazeArray with zeros
-        for (int[] ints : mazeArray) {
+        // Initialize dungeonMap with zeros
+        for (int[] ints : dungeonMap) {
             Arrays.fill(ints, 0);
         }
 
@@ -40,20 +40,20 @@ public class DungeonGenerator {
         // Place start room
         System.out.println(startRoomY); // DEBUG
         System.out.println(startRoomX); // DEBUG
-        mazeArray[(int)startRoomY][(int)startRoomX] = 5;
-        listOfRooms.add(new int[]{(int)startRoomY, (int)startRoomX});
+        dungeonMap[(int) startRoomY][(int) startRoomX] = 5;
+        listOfRoomsCoordinates.add(new int[]{(int) startRoomY, (int) startRoomX});
 
         // Generating branching rooms
         for (int roomsAdded = 1; roomsAdded < roomsNeeded; roomsAdded++) {
-            int roomIndexToBranchFurther = random.nextInt(listOfRooms.size());
-            int[] possiblyNewRoom = createRoomFrom(listOfRooms.get(roomIndexToBranchFurther));
+            int roomIndexToBranchFurther = random.nextInt(listOfRoomsCoordinates.size());
+            int[] possiblyNewRoom = createRoomFrom(listOfRoomsCoordinates.get(roomIndexToBranchFurther));
 
             if (possiblyNewRoom[0] != -1 && possiblyNewRoom[1] != -1) {
-                listOfRooms.add(possiblyNewRoom);
+                listOfRoomsCoordinates.add(possiblyNewRoom);
             } else roomsAdded--; // Means room was not successfully added since to many neighbours, need to try again
         }
 
-        showDungeon(mazeArray);
+        showDungeon(dungeonMap);
     }
 
     public int[] createRoomFrom(int[] parentRoom) {
@@ -69,22 +69,22 @@ public class DungeonGenerator {
         if (parentRoomX + 1 < initialArraySize) checkRIGHT = true;
 
         // Add candidate rooms
-        if (checkUP && mazeArray[parentRoomY - 1][parentRoomX] == 0) {
+        if (checkUP && dungeonMap[parentRoomY - 1][parentRoomX] == 0) {
             candidateCoordinatesForNewRoom.add(new int[]{parentRoomY - 1, parentRoomX, 1});
         }
-        if (checkDOWN && mazeArray[parentRoomY + 1][parentRoomX] == 0) {
+        if (checkDOWN && dungeonMap[parentRoomY + 1][parentRoomX] == 0) {
             candidateCoordinatesForNewRoom.add(new int[]{parentRoomY + 1, parentRoomX, 2});
         }
-        if (checkLEFT && mazeArray[parentRoomY][parentRoomX - 1] == 0) {
+        if (checkLEFT && dungeonMap[parentRoomY][parentRoomX - 1] == 0) {
             candidateCoordinatesForNewRoom.add(new int[]{parentRoomY, parentRoomX - 1, 3});
         }
-        if (checkRIGHT && mazeArray[parentRoomY][parentRoomX + 1] == 0) {
+        if (checkRIGHT && dungeonMap[parentRoomY][parentRoomX + 1] == 0) {
             candidateCoordinatesForNewRoom.add(new int[]{parentRoomY, parentRoomX + 1, 4});
         }
 
         if (!candidateCoordinatesForNewRoom.isEmpty()) {
             int[] randomRoomFromCandidates = candidateCoordinatesForNewRoom.get(random.nextInt(candidateCoordinatesForNewRoom.size()));
-            mazeArray[randomRoomFromCandidates[0]][randomRoomFromCandidates[1]] = randomRoomFromCandidates[2]; // Assuming 1 represents a room
+            dungeonMap[randomRoomFromCandidates[0]][randomRoomFromCandidates[1]] = randomRoomFromCandidates[2]; // Assuming 1 represents a room
             return new int[]{randomRoomFromCandidates[0], randomRoomFromCandidates[1]};
         } else {
             return new int[]{-1, -1};
@@ -98,5 +98,9 @@ public class DungeonGenerator {
             }
             System.out.println();
         }
+    }
+    
+    public int[][] getDungeonMap(){
+        return dungeonMap;
     }
 }
