@@ -45,6 +45,7 @@ public class Controller {
 
     public void fightOrUse(){
         model.fightOrUse();
+        mainActivity.updateHPBar(model.player.getHP(), model.player.getMaxHP());
         if (!model.player.getFightState()) stopFightState();
     }
 }

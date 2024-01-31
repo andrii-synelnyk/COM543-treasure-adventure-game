@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.view.View;
+import android.widget.ProgressBar;
 
 public class MainActivity extends AppCompatActivity {
     Button moveUpButton;
@@ -12,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     Button moveRightButton;
     Button moveDownButton;
     Button fightOrUseButton;
+    ProgressBar playerHPBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +26,11 @@ public class MainActivity extends AppCompatActivity {
         moveRightButton = findViewById(R.id.moveRIGHTButton);
         moveDownButton = findViewById(R.id.moveDOWNButton);
         fightOrUseButton = findViewById(R.id.fightOrUseButton);
+        playerHPBar = findViewById(R.id.playerHPBar);
 
         Controller controller = new Controller(this);
         changeFightOrUseButtonStatus(false);
+        updateHPBar(10, 10); // Make hp bar 100% at the start
 
         // Set up listeners for each button
         moveUpButton.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
         moveDownButton.setEnabled(status);
         moveLeftButton.setEnabled(status);
         moveRightButton.setEnabled(status);
+    }
+
+    public void updateHPBar(int newHP, int maxHP){
+        float onePercent = (float) maxHP /100;
+        int percentsToDisplay = (int) (newHP / onePercent);
+
+        if (newHP <= 0) playerHPBar.setProgress(0);
+        else playerHPBar.setProgress(percentsToDisplay);
     }
 
 }

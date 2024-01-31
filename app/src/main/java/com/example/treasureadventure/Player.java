@@ -2,13 +2,15 @@ package com.example.treasureadventure;
 
 public class Player {
 
-    private int hp = 30;
+    private int maxHP = 30;
+    private int hp;
     private Room currentRoom;
     private Item[] inventory;
     private boolean fightState = false;
 
     Player (Room currentRoom) {
         this.currentRoom = currentRoom;
+        hp = maxHP;
     }
 
     public void moveTo(Room newRoom) {
@@ -33,5 +35,9 @@ public class Player {
 
     public int getHP(){
         return hp;
+    }
+
+    public int getMaxHP(){
+        return maxHP;
     }
 }
