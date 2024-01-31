@@ -17,6 +17,7 @@ public class DungeonConstructor {
                 if (dungeonMap[i][j] == 5){
                     String key = i + "," + j;
                     startRoom = new Room();
+                    startRoom.setStartRoom();
                     rooms.put(key, startRoom);
                 }
 

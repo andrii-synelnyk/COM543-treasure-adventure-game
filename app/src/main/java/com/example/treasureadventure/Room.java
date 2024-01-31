@@ -2,10 +2,16 @@ package com.example.treasureadventure;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Room {
 
     private Map<Direction, Room> connections;
+
+    private boolean isStartRoom = false;
+    private final Random random = new Random();
+    private boolean hasGoblin = false;
+    private Goblin thisRoomGoblin;
 
     Room(){
         Map<Direction, Room> placeholderConnections = new HashMap<>();
@@ -15,6 +21,16 @@ public class Room {
         placeholderConnections.put(Direction.LEFT, null);
 
         connections = placeholderConnections;
+
+        if (!isStartRoom) randomSpawnGoblin();
+    }
+
+    private void randomSpawnGoblin(){
+        int randomFactor = random.nextInt(2); // 0 or 1 // 50% chance of goblin spawned
+        if (randomFactor == 1){
+            thisRoomGoblin = new Goblin();
+            hasGoblin = true;
+        }
     }
 
     public void setUPConnection(Room connectedRoom){
@@ -31,6 +47,18 @@ public class Room {
 
     public void setLEFTConnection(Room connectedRoom){
         connections.put(Direction.LEFT, connectedRoom);
+    }
+
+    public void setStartRoom(){
+        isStartRoom = true;
+    }
+
+    public boolean hasGoblin(){
+        return hasGoblin && thisRoomGoblin.getHP() > 0;
+    }
+
+    public Goblin getGoblin(){
+        return thisRoomGoblin;
     }
 
     public Map<Direction, Room> getConnections() {

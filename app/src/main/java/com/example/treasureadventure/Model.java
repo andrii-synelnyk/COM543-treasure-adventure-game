@@ -5,6 +5,7 @@ import java.util.Map;
 public class Model {
 
     Player player;
+    boolean gameOver = false;
 
     Model() {
         startGame();
@@ -48,7 +49,32 @@ public class Model {
         Map<Direction, Room> connections = currentRoom.getConnections();
 
         player.moveTo(connections.get(direction));
+        if (player.getCurrentRoom().hasGoblin()) startFightState();
     }
+
+    private void startFightState(){
+        player.setFightState(true);
+    }
+
+    private void stopFightState(){
+        player.setFightState(false);
+    }
+
+    public void fightOrUse(){
+        if(player.getFightState()){
+            Goblin goblin = player.getCurrentRoom().getGoblin();
+            int savedPlayerHP = player.getHP();
+            player.setHP(savedPlayerHP - goblin.getHP());
+            goblin.setHP(goblin.getHP() - savedPlayerHP);
+            if (goblin.getHP() <= 0) stopFightState();
+            else if (player.getHP() <= 0) gameOver();
+        }
+    }
+
+    private void gameOver(){
+        gameOver = true;
+    }
+
 }
 
 

@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
     Button moveLeftButton;
     Button moveRightButton;
     Button moveDownButton;
+    Button fightOrUseButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +23,10 @@ public class MainActivity extends AppCompatActivity {
         moveLeftButton = findViewById(R.id.moveLEFTButton);
         moveRightButton = findViewById(R.id.moveRIGHTButton);
         moveDownButton = findViewById(R.id.moveDOWNButton);
+        fightOrUseButton = findViewById(R.id.fightOrUseButton);
 
         Controller controller = new Controller(this);
+        changeFightOrUseButtonStatus(false);
 
         // Set up listeners for each button
         moveUpButton.setOnClickListener(new View.OnClickListener() {
@@ -53,40 +56,41 @@ public class MainActivity extends AppCompatActivity {
                 controller.move(Direction.DOWN);
             }
         });
+
+        fightOrUseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.fightOrUse();
+            }
+        });
     }
 
-    public void deactivateButton(Direction button){
+    public void changeFightOrUseButtonStatus(boolean status){
+        fightOrUseButton.setEnabled(status);
+    }
+
+    public void changeMoveButtonStatus(Direction button, boolean status){
         switch (button) {
             case UP:
-                moveUpButton.setEnabled(false);
+                moveUpButton.setEnabled(status);
                 break;
             case DOWN:
-                moveDownButton.setEnabled(false);
+                moveDownButton.setEnabled(status);
                 break;
             case LEFT:
-                moveLeftButton.setEnabled(false);
+                moveLeftButton.setEnabled(status);
                 break;
             case RIGHT:
-                moveRightButton.setEnabled(false);
+                moveRightButton.setEnabled(status);
                 break;
         }
     }
 
-    public void activateButton(Direction button){
-        switch (button) {
-            case UP:
-                moveUpButton.setEnabled(true);
-                break;
-            case DOWN:
-                moveDownButton.setEnabled(true);
-                break;
-            case LEFT:
-                moveLeftButton.setEnabled(true);
-                break;
-            case RIGHT:
-                moveRightButton.setEnabled(true);
-                break;
-        }
+    public void changeAllMoveButtonsStatus(boolean status){
+        moveUpButton.setEnabled(status);
+        moveDownButton.setEnabled(status);
+        moveLeftButton.setEnabled(status);
+        moveRightButton.setEnabled(status);
     }
 
 }

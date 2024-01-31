@@ -17,18 +17,34 @@ public class Controller {
 
     private void updateButtons(){
         int[] availableRooms = model.checkAvailableRoomsToMoveTo();
-        if(availableRooms[0] == 0) mainActivity.deactivateButton(Direction.UP);
-        else mainActivity.activateButton(Direction.UP);
-        if(availableRooms[1] == 0) mainActivity.deactivateButton(Direction.DOWN);
-        else mainActivity.activateButton(Direction.DOWN);
-        if(availableRooms[2] == 0) mainActivity.deactivateButton(Direction.LEFT);
-        else mainActivity.activateButton(Direction.LEFT);
-        if(availableRooms[3] == 0) mainActivity.deactivateButton(Direction.RIGHT);
-        else mainActivity.activateButton(Direction.RIGHT);
+        if(availableRooms[0] == 0) mainActivity.changeMoveButtonStatus(Direction.UP, false);
+        else mainActivity.changeMoveButtonStatus(Direction.UP,true);
+        if(availableRooms[1] == 0) mainActivity.changeMoveButtonStatus(Direction.DOWN, false);
+        else mainActivity.changeMoveButtonStatus(Direction.DOWN, true);
+        if(availableRooms[2] == 0) mainActivity.changeMoveButtonStatus(Direction.LEFT, false);
+        else mainActivity.changeMoveButtonStatus(Direction.LEFT, true);
+        if(availableRooms[3] == 0) mainActivity.changeMoveButtonStatus(Direction.RIGHT, false);
+        else mainActivity.changeMoveButtonStatus(Direction.RIGHT, true);
     }
 
     public void move(Direction direction){
         model.movePlayer(direction);
         updateButtons();
+        if (model.player.getFightState()) startFightState();
+    }
+
+    private void startFightState(){
+        mainActivity.changeFightOrUseButtonStatus(true);
+        mainActivity.changeAllMoveButtonsStatus(false);
+    }
+
+    private void stopFightState(){
+        mainActivity.changeFightOrUseButtonStatus(false);
+        updateButtons();
+    }
+
+    public void fightOrUse(){
+        model.fightOrUse();
+        if (!model.player.getFightState()) stopFightState();
     }
 }
