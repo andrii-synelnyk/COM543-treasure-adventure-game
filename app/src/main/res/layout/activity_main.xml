@@ -6,13 +6,60 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/moveUPButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="281dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginBottom="7dp"
+        android:text="UP"
+        app:layout_constraintBottom_toTopOf="@+id/moveRIGHTButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/moveLEFTButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="8dp"
+        android:text="LEFT"
+        app:layout_constraintBottom_toTopOf="@+id/moveDOWNButton"
+        app:layout_constraintEnd_toStartOf="@+id/moveRIGHTButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moveUPButton" />
+
+    <Button
+        android:id="@+id/moveRIGHTButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="336dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginBottom="9dp"
+        android:text="RIGHT"
+        app:layout_constraintBottom_toTopOf="@+id/moveDOWNButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/moveLEFTButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/moveDOWNButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="160dp"
+        android:layout_marginBottom="290dp"
+        android:text="DOWN"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moveUPButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

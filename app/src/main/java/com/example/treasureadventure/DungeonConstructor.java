@@ -8,10 +8,18 @@ import java.util.Map;
 public class DungeonConstructor {
 
     private Map<String, Room> rooms = new HashMap<>();
+    private Room startRoom;
 
     public void constructRooms(int[][] dungeonMap){
         for (int i = 0; i < dungeonMap.length; i++) {
             for (int j = 0; j < dungeonMap[i].length; j++) {
+                // If the room encountered is intended to be the start room
+                if (dungeonMap[i][j] == 5){
+                    String key = i + "," + j;
+                    startRoom = new Room();
+                    rooms.put(key, startRoom);
+                }
+
                 if (dungeonMap[i][j] != 0) analyzeAroundCell(i, j, dungeonMap);
             }
         }
@@ -57,6 +65,10 @@ public class DungeonConstructor {
             rooms.put(key, new Room());
         }
         return rooms.get(key);
+    }
+
+    public Room getStartRoom(){
+        return startRoom;
     }
 
     private void printRooms(){
