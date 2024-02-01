@@ -7,7 +7,6 @@ import java.util.Random;
 public class Room {
 
     private Map<Direction, Room> connections;
-
     private boolean isStartRoom;
     private final Random random = new Random();
     private boolean hasGoblin = false;
@@ -23,16 +22,11 @@ public class Room {
         placeholderConnections.put(Direction.LEFT, null);
 
         connections = placeholderConnections;
-
-        if (!isStartRoom) randomSpawnGoblin();
     }
 
-    private void randomSpawnGoblin(){
-        int randomFactor = random.nextInt(2); // 0 or 1 // 50% chance of goblin spawned
-        if (randomFactor == 1){
-            thisRoomGoblin = new Goblin();
-            hasGoblin = true;
-        }
+    public void spawnGoblin(){
+        thisRoomGoblin = new Goblin();
+        hasGoblin = true;
     }
 
     public void setUPConnection(Room connectedRoom){
@@ -61,5 +55,9 @@ public class Room {
 
     public Map<Direction, Room> getConnections() {
         return connections;
+    }
+
+    public boolean isStartRoom(){
+        return isStartRoom;
     }
 }

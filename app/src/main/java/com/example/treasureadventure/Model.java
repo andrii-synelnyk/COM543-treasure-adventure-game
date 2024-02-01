@@ -3,6 +3,7 @@ package com.example.treasureadventure;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 
 public class Model {
 
@@ -15,6 +16,7 @@ public class Model {
     HashSet<Room> clearedRooms = new HashSet<>();
     boolean isItemSelected = false;
     Item selectedItem;
+    private final Random random = new Random();
 
     Model() {
         startGame();
@@ -22,6 +24,7 @@ public class Model {
 
     private void startGame(){
         startRoom = generateAndConstructDungeon();
+        spawnGoblins();
 
         player = new Player(startRoom);
 
@@ -31,7 +34,7 @@ public class Model {
     }
 
     private Room generateAndConstructDungeon(){
-        int roomsNeeded = 6;
+        int roomsNeeded = 15;
         DungeonGenerator generator = new DungeonGenerator();
         generator.generateDungeon(roomsNeeded);
 
@@ -42,6 +45,25 @@ public class Model {
         rooms = constructor.getRoomsSet();
 
         return constructor.getStartRoom();
+    }
+
+    private void spawnGoblins(){
+        int goblinsNeedsToSpawn = (int) Math.ceil((rooms.size() - 1) * 0.3);
+        ArrayList<Room> roomsArray = new ArrayList<>(rooms);
+        ArrayList<Room> roomsAlreadySpawned = new ArrayList<>();
+        System.out.println("Goblins needs to be spawned: " + goblinsNeedsToSpawn);
+
+        for (int spawned = 0; spawned < goblinsNeedsToSpawn; spawned++){
+            int roomToSpawnGoblinIn = random.nextInt(roomsArray.size());
+            Room roomGrabbed = roomsArray.get(roomToSpawnGoblinIn);
+
+            if(roomsAlreadySpawned.contains(roomGrabbed) || roomGrabbed.isStartRoom()){
+                spawned--;
+            } else {
+                roomGrabbed.spawnGoblin();
+                roomsAlreadySpawned.add(roomGrabbed);
+            }
+        }
     }
 
     // To know which move button to deactivate
@@ -95,7 +117,7 @@ public class Model {
                 selectedItem.setValue(0);
                 stopFightState();
             } else {
-                int difference = selectedItem.getValue() - currentGoblin.getHP(); // can be problem here because not isitemselected = false
+                int difference = selectedItem.getValue() - currentGoblin.getHP();
                 currentGoblin.setHP(0);
                 selectedItem.setValue(difference);
                 stopFightState();
