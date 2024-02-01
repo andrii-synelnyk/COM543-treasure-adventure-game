@@ -9,7 +9,7 @@ public class Goblin {
     private int hp;
 
     Goblin(){
-       maxHP = 5 + random.nextInt(6); // max 10
+       maxHP = 0 + random.nextInt(6); // max 10
        hp = maxHP;
     }
 

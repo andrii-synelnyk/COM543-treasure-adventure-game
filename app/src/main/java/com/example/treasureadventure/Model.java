@@ -1,5 +1,6 @@
 package com.example.treasureadventure;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -12,6 +13,8 @@ public class Model {
     Room startRoom;
     HashSet<Room> rooms = new HashSet<>();
     HashSet<Room> clearedRooms = new HashSet<>();
+    boolean isItemSelected = false;
+    Item selectedItem;
 
     Model() {
         startGame();
@@ -21,6 +24,10 @@ public class Model {
         startRoom = generateAndConstructDungeon();
 
         player = new Player(startRoom);
+
+        player.addItemToInventory();
+        player.addItemToInventory();
+        player.addItemToInventory();
     }
 
     private Room generateAndConstructDungeon(){
@@ -79,12 +86,39 @@ public class Model {
     }
 
     public void fightOrUse(){
-        if(player.getFightState()){
-            Goblin goblin = player.getCurrentRoom().getGoblin();
+        if (isItemSelected && selectedItem.getType() == ItemType.Sword){
+            if (currentGoblin.getHP() > selectedItem.getValue()) {
+                currentGoblin.setHP(currentGoblin.getHP() - selectedItem.getValue());
+                selectedItem.setValue(0);
+            }else if (currentGoblin.getHP() == selectedItem.getValue()){
+                currentGoblin.setHP(0);
+                selectedItem.setValue(0);
+                stopFightState();
+            } else {
+                int difference = selectedItem.getValue() - currentGoblin.getHP(); // can be problem here because not isitemselected = false
+                currentGoblin.setHP(0);
+                selectedItem.setValue(difference);
+                stopFightState();
+            }
+        } else if (isItemSelected && selectedItem.getType() == ItemType.HealthPotion){
+            int playerHealthDifference = player.getMaxHP() - player.getHP();
+            if (playerHealthDifference > selectedItem.getValue()){
+                player.setHP(player.getHP() + selectedItem.getValue());
+                selectedItem.setValue(0);
+            }else if (playerHealthDifference <= selectedItem.getValue()){
+                int difference = selectedItem.getValue() - playerHealthDifference;
+                player.setHP(player.getMaxHP());
+                selectedItem.setValue(difference);
+            }
+        } else if (isItemSelected && selectedItem.getType() == ItemType.EscapePortal){
+            player.moveTo(startRoom);
+            selectedItem.setValue(0);
+            stopFightState();
+        } else {
             int savedPlayerHP = player.getHP();
-            player.setHP(savedPlayerHP - goblin.getHP());
-            goblin.setHP(goblin.getHP() - savedPlayerHP);
-            if (goblin.getHP() <= 0) stopFightState();
+            player.setHP(savedPlayerHP - currentGoblin.getHP());
+            currentGoblin.setHP(currentGoblin.getHP() - savedPlayerHP);
+            if (currentGoblin.getHP() <= 0) stopFightState();
             else if (player.getHP() <= 0) gameOver();
         }
     }
@@ -110,6 +144,19 @@ public class Model {
     public int getNumberOfclearedRooms(){
         return clearedRooms.size();
     }
+
+    public ArrayList<Item> getInventory(){
+        return player.getInventory();
+    }
+    public void itemSelected(int id){
+        isItemSelected = true;
+        ArrayList<Item> inventory = getInventory();
+        selectedItem = inventory.get(id);
+   }
+
+   public void itemDeselected(){
+        isItemSelected = false;
+   }
 }
 
 

@@ -1,5 +1,7 @@
 package com.example.treasureadventure;
 
+import android.graphics.Color;
+
 public class Controller {
 
     Model model;
@@ -13,6 +15,7 @@ public class Controller {
 
         this.mainActivity = mainActivity;
         updateButtons();
+        mainActivity.updateInventoryView(model.player.getInventory());
     }
 
     private void updateButtons(){
@@ -38,7 +41,7 @@ public class Controller {
         mainActivity.changeFightOrUseButtonStatus(true);
         mainActivity.changeAllMoveButtonsStatus(false);
 
-        mainActivity.showGoblinHealthBar(true);
+        mainActivity.showGoblinHealthBar(true, model.currentGoblin.getHP(), model.currentGoblin.getMaxHP());
     }
 
     private void stopFightState(){
@@ -46,7 +49,7 @@ public class Controller {
         updateButtons();
         updateDungeonProgressBar();
 
-        mainActivity.showGoblinHealthBar(false);
+        mainActivity.showGoblinHealthBar(false, 0, 0); // int values don't matter
     }
 
     public void fightOrUse(){
@@ -54,6 +57,11 @@ public class Controller {
         mainActivity.updateHPBar(model.player.getHP(), model.player.getMaxHP());
         mainActivity.updateGoblinHPBar(model.currentGoblin.getHP(), model.currentGoblin.getMaxHP());
         if (!model.player.getFightState()) stopFightState();
+
+        // update view of items (change values or delete from the list)
+        model.player.updateInventory();
+        mainActivity.updateInventoryView(model.player.getInventory());
+        itemDeselected();
     }
 
     private void updateDungeonProgressBar(){
@@ -61,5 +69,19 @@ public class Controller {
         int clearedRooms = model.getNumberOfclearedRooms();
 
         mainActivity.updateDungeonProgressBar(clearedRooms, allRooms);
+    }
+
+    public void itemSelected(int id){
+        // list item is highlighted inside mainActivity
+        // button is changed from fight to use from controller
+        // item selected passed into model
+
+        mainActivity.changeFightOrUseButtonText("Use");
+        model.itemSelected(id);
+    }
+
+    public void itemDeselected(){
+        mainActivity.changeFightOrUseButtonText("Fight bare-handed");
+        model.itemDeselected();
     }
 }
