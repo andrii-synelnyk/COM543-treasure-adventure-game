@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     Button fightOrUseButton;
     ProgressBar playerHPBar;
     ProgressBar dungeonProgressBar;
+    ProgressBar goblinHealthBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +30,12 @@ public class MainActivity extends AppCompatActivity {
         fightOrUseButton = findViewById(R.id.fightOrUseButton);
         playerHPBar = findViewById(R.id.playerHPBar);
         dungeonProgressBar = findViewById(R.id.dungeonProgressBar);
+        goblinHealthBar = findViewById(R.id.goblinHealthBar);
 
         Controller controller = new Controller(this);
         changeFightOrUseButtonStatus(false);
         updateHPBar(10, 10); // Make hp bar 100% at the start
+        showGoblinHealthBar(false);
 
         // Set up listeners for each button
         moveUpButton.setOnClickListener(new View.OnClickListener() {
@@ -114,4 +117,18 @@ public class MainActivity extends AppCompatActivity {
         dungeonProgressBar.setProgress(percentsToDisplay);
     }
 
+    public void showGoblinHealthBar(boolean status){
+        if (status) goblinHealthBar.setVisibility(View.VISIBLE);
+        else goblinHealthBar.setVisibility(View.INVISIBLE);
+
+        goblinHealthBar.setProgress(100);
+    }
+
+    public void updateGoblinHPBar(int newHP, int maxHP){
+        float onePercent = (float) maxHP / 100;
+        int percentsToDisplay = (int) (newHP / onePercent);
+
+        if (newHP <= 0) goblinHealthBar.setProgress(0);
+        else goblinHealthBar.setProgress(percentsToDisplay);
+    }
 }

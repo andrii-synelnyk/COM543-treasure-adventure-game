@@ -6,6 +6,7 @@ import java.util.Map;
 public class Model {
 
     Player player;
+    Goblin currentGoblin;
     boolean gameOver = false;
     boolean gameWin = false;
     Room startRoom;
@@ -64,6 +65,7 @@ public class Model {
     }
 
     private void startFightState(){
+        currentGoblin = player.getCurrentRoom().getGoblin();
         player.setFightState(true);
     }
 
@@ -108,7 +110,6 @@ public class Model {
     public int getNumberOfclearedRooms(){
         return clearedRooms.size();
     }
-
 }
 
 

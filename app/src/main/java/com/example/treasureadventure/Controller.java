@@ -37,17 +37,22 @@ public class Controller {
     private void startFightState(){
         mainActivity.changeFightOrUseButtonStatus(true);
         mainActivity.changeAllMoveButtonsStatus(false);
+
+        mainActivity.showGoblinHealthBar(true);
     }
 
     private void stopFightState(){
         mainActivity.changeFightOrUseButtonStatus(false);
         updateButtons();
         updateDungeonProgressBar();
+
+        mainActivity.showGoblinHealthBar(false);
     }
 
     public void fightOrUse(){
         model.fightOrUse();
         mainActivity.updateHPBar(model.player.getHP(), model.player.getMaxHP());
+        mainActivity.updateGoblinHPBar(model.currentGoblin.getHP(), model.currentGoblin.getMaxHP());
         if (!model.player.getFightState()) stopFightState();
     }
 
