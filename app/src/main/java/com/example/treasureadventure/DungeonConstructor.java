@@ -2,6 +2,7 @@ package com.example.treasureadventure;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +17,7 @@ public class DungeonConstructor {
                 // If the room encountered is intended to be the start room
                 if (dungeonMap[i][j] == 5){
                     String key = i + "," + j;
-                    startRoom = new Room();
-                    startRoom.setStartRoom();
+                    startRoom = new Room(true);
                     rooms.put(key, startRoom);
                 }
 
@@ -63,7 +63,7 @@ public class DungeonConstructor {
     private Room checkIfAlreadyExists(int coordinateY, int coordinateX) {
         String key = coordinateY + "," + coordinateX;
         if (!rooms.containsKey(key)) {
-            rooms.put(key, new Room());
+            rooms.put(key, new Room(false));
         }
         return rooms.get(key);
     }
@@ -76,5 +76,9 @@ public class DungeonConstructor {
         for (Room room : rooms.values()) {
             System.out.println(room.getConnections());
         }
+    }
+
+    public HashSet<Room> getRoomsSet(){
+        return new HashSet<>(rooms.values());
     }
 }

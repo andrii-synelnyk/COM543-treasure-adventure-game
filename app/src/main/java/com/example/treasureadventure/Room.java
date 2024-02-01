@@ -8,12 +8,14 @@ public class Room {
 
     private Map<Direction, Room> connections;
 
-    private boolean isStartRoom = false;
+    private boolean isStartRoom;
     private final Random random = new Random();
     private boolean hasGoblin = false;
     private Goblin thisRoomGoblin;
 
-    Room(){
+    Room(boolean isStartRoom){
+        this.isStartRoom = isStartRoom;
+
         Map<Direction, Room> placeholderConnections = new HashMap<>();
         placeholderConnections.put(Direction.UP, null);
         placeholderConnections.put(Direction.DOWN, null);
@@ -47,10 +49,6 @@ public class Room {
 
     public void setLEFTConnection(Room connectedRoom){
         connections.put(Direction.LEFT, connectedRoom);
-    }
-
-    public void setStartRoom(){
-        isStartRoom = true;
     }
 
     public boolean hasGoblin(){

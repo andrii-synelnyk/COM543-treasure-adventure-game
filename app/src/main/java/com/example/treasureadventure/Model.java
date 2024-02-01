@@ -1,18 +1,23 @@
 package com.example.treasureadventure;
 
+import java.util.HashSet;
 import java.util.Map;
 
 public class Model {
 
     Player player;
     boolean gameOver = false;
+    boolean gameWin = false;
+    Room startRoom;
+    HashSet<Room> rooms = new HashSet<>();
+    HashSet<Room> clearedRooms = new HashSet<>();
 
     Model() {
         startGame();
     }
 
     private void startGame(){
-        Room startRoom = generateAndConstructDungeon();
+        startRoom = generateAndConstructDungeon();
 
         player = new Player(startRoom);
     }
@@ -25,6 +30,8 @@ public class Model {
         int[][] dungeonMap = generator.getDungeonMap();
         DungeonConstructor constructor = new DungeonConstructor();
         constructor.constructRooms(dungeonMap);
+
+        rooms = constructor.getRoomsSet();
 
         return constructor.getStartRoom();
     }
@@ -48,8 +55,12 @@ public class Model {
         Room currentRoom = player.getCurrentRoom();
         Map<Direction, Room> connections = currentRoom.getConnections();
 
-        player.moveTo(connections.get(direction));
+        Room newRoom = connections.get(direction);
+        player.moveTo(newRoom);
         if (player.getCurrentRoom().hasGoblin()) startFightState();
+        else if (!clearedRooms.contains(newRoom) && !newRoom.equals(startRoom)) clearedRooms.add(newRoom); // WEIRD WARNING
+
+        checkIfGameWin();
     }
 
     private void startFightState(){
@@ -58,6 +69,11 @@ public class Model {
 
     private void stopFightState(){
         player.setFightState(false);
+
+        Room currentRoom = player.getCurrentRoom();
+        if (!clearedRooms.contains(currentRoom) && !currentRoom.equals(startRoom)) clearedRooms.add(currentRoom); // WEIRD WARNING
+
+        checkIfGameWin();
     }
 
     public void fightOrUse(){
@@ -71,8 +87,26 @@ public class Model {
         }
     }
 
+    private void checkIfGameWin(){
+        if (clearedRooms.size() == rooms.size() - 1) gameWin();
+    }
+
     private void gameOver(){
         gameOver = true;
+        System.out.println("Game Over");
+    }
+
+    private void gameWin(){
+        gameWin = true;
+        System.out.println("Game Win");
+    }
+
+    public int getNumberOfAllRooms(){
+        return rooms.size() - 1; // minus start room
+    }
+
+    public int getNumberOfclearedRooms(){
+        return clearedRooms.size();
     }
 
 }

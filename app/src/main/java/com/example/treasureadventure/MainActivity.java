@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     Button moveDownButton;
     Button fightOrUseButton;
     ProgressBar playerHPBar;
+    ProgressBar dungeonProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         moveDownButton = findViewById(R.id.moveDOWNButton);
         fightOrUseButton = findViewById(R.id.fightOrUseButton);
         playerHPBar = findViewById(R.id.playerHPBar);
+        dungeonProgressBar = findViewById(R.id.dungeonProgressBar);
 
         Controller controller = new Controller(this);
         changeFightOrUseButtonStatus(false);
@@ -98,11 +100,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateHPBar(int newHP, int maxHP){
-        float onePercent = (float) maxHP /100;
+        float onePercent = (float) maxHP / 100;
         int percentsToDisplay = (int) (newHP / onePercent);
 
         if (newHP <= 0) playerHPBar.setProgress(0);
         else playerHPBar.setProgress(percentsToDisplay);
+    }
+
+    public void updateDungeonProgressBar(int clearedRooms, int allRooms){
+        float onePercent = (float) allRooms / 100;
+        int percentsToDisplay = (int) (clearedRooms / onePercent);
+
+        dungeonProgressBar.setProgress(percentsToDisplay);
     }
 
 }

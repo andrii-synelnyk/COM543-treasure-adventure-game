@@ -31,6 +31,7 @@ public class Controller {
         model.movePlayer(direction);
         updateButtons();
         if (model.player.getFightState()) startFightState();
+        updateDungeonProgressBar();
     }
 
     private void startFightState(){
@@ -41,11 +42,19 @@ public class Controller {
     private void stopFightState(){
         mainActivity.changeFightOrUseButtonStatus(false);
         updateButtons();
+        updateDungeonProgressBar();
     }
 
     public void fightOrUse(){
         model.fightOrUse();
         mainActivity.updateHPBar(model.player.getHP(), model.player.getMaxHP());
         if (!model.player.getFightState()) stopFightState();
+    }
+
+    private void updateDungeonProgressBar(){
+        int allRooms = model.getNumberOfAllRooms();
+        int clearedRooms = model.getNumberOfclearedRooms();
+
+        mainActivity.updateDungeonProgressBar(clearedRooms, allRooms);
     }
 }
