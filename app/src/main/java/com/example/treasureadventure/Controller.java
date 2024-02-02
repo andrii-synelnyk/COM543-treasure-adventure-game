@@ -47,6 +47,8 @@ public class Controller {
         gameActivity.updateInventoryView(model.player.getInventory());
 
         gameActivity.keepItemSelected();
+
+        checkIfGameEnded();
     }
 
     private void startFightState(){
@@ -62,6 +64,8 @@ public class Controller {
         updateDungeonProgressBar();
 
         gameActivity.showGoblinHPBar(false, 0, 0); // int values don't matter
+
+        checkIfGameEnded();
     }
 
     public void fightOrUse(){
@@ -76,6 +80,8 @@ public class Controller {
         itemDeselected();
 
         gameActivity.clearLastSelectedItem();
+
+        checkIfGameEnded();
     }
 
     private void updateDungeonProgressBar(){
@@ -97,5 +103,13 @@ public class Controller {
     public void itemDeselected(){
         gameActivity.changeFightOrUseButtonText("Fight bare-handed");
         model.itemDeselected();
+    }
+
+    private void checkIfGameEnded(){
+        if (model.gameWin){
+            gameActivity.gameEnded("Win");
+        } else if (model.gameOver){
+            gameActivity.gameEnded("Lose");
+        }
     }
 }

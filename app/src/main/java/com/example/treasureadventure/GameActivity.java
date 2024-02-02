@@ -2,6 +2,7 @@ package com.example.treasureadventure;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.app.AlertDialog;
 
 import java.util.ArrayList;
 
@@ -263,5 +265,30 @@ public class GameActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_bar_button, menu);
         return true;
+    }
+
+    public void gameEnded(String result){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        if (result.equals("Win")){
+            builder.setTitle("YOU WON! 🎉");
+            builder.setMessage("Congratulations!");
+        }else {
+            builder.setTitle("YOU LOST 😢");
+            builder.setTitle("Try one more time");
+        }
+
+        // Add the button
+        builder.setPositiveButton("Return to menu", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                onBackPressed();
+            }
+        });
+
+        // Create and show the dialog
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false); // Makes the dialog non-cancellable
+        dialog.setCanceledOnTouchOutside(false); // The dialog is not cancelled when touched outside its window
+        dialog.show();
     }
 }
