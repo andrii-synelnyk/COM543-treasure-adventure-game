@@ -1,26 +1,44 @@
 package com.example.treasureadventure;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Room {
-
+    @XmlElement
     private Map<Direction, Integer> connections;
+    @XmlElement
     private boolean isStartRoom;
     private final Random random = new Random();
+    @XmlElement
     private boolean hasGoblin = false;
+    @XmlElement
     private Goblin thisRoomGoblin;
-
+    @XmlElement
     private static int nextId = 1; // Static variable to keep track of the next ID
+    @XmlElement
     private int id;
+
+    public Room() {
+        // This constructor is required by JAXB
+        initializeConnections();
+    }
 
     Room(boolean isStartRoom){
         this.id = nextId; // Assign the current ID to the new object
         nextId++;
 
         this.isStartRoom = isStartRoom;
+        initializeConnections();
+    }
 
+    private void initializeConnections() {
         Map<Direction, Integer> placeholderConnections = new HashMap<>();
         placeholderConnections.put(Direction.UP, -1);
         placeholderConnections.put(Direction.DOWN, -1);
@@ -31,7 +49,7 @@ public class Room {
     }
 
     public void spawnGoblin(){
-        thisRoomGoblin = new Goblin();
+        thisRoomGoblin = new Goblin(true);
         hasGoblin = true;
     }
 

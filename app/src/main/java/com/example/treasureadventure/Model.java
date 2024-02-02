@@ -1,22 +1,37 @@
 package com.example.treasureadventure;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Model {
-
+    @XmlElement
     Player player;
+    @XmlElement
     Goblin currentGoblin;
+    @XmlElement
     boolean gameOver = false;
+    @XmlElement
     boolean gameWin = false;
+    @XmlElement
     Room startRoom;
+    @XmlElement
     HashSet<Room> rooms = new HashSet<>();
+    @XmlElement
     HashSet<Room> clearedRooms = new HashSet<>();
+    @XmlElement
     boolean isItemSelected = false;
+    @XmlElement
     Item selectedItem;
     private final Random random = new Random();
+    @XmlElement
     Direction directionBack;
 
     Model() {

@@ -1,14 +1,29 @@
 package com.example.treasureadventure;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.util.ArrayList;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Player {
-
+    @XmlElement
     private int maxHP = 30;
+    @XmlElement
     private int hp;
+    @XmlElement
     private Room currentRoom;
+    @XmlElement
     private boolean fightState = false;
+    @XmlElement
     private ArrayList<Item> inventory = new ArrayList<>();
+
+    // JAXB requires a no-arg constructor for serialization
+    public Player() {
+        // This constructor is required by JAXB
+    }
 
     Player (Room currentRoom) {
         this.currentRoom = currentRoom;
@@ -44,7 +59,7 @@ public class Player {
     }
 
     public void addItemToInventory(){
-        inventory.add(new Item());
+        inventory.add(new Item(true));
     }
 
     public ArrayList<Item> getInventory(){

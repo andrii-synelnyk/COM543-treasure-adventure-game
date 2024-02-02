@@ -1,14 +1,27 @@
 package com.example.treasureadventure;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 import java.util.Random;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Item {
 
+    @XmlElement
     ItemType type;
+    @XmlElement
     private int value;
     private final Random random = new Random();
 
-    Item(){
+    // No-argument constructor for JAXB
+    public Item() {
+        // This constructor is required by JAXB
+    }
+
+    Item(boolean randomise){
         randomChooseItemType();
     }
 
