@@ -39,6 +39,9 @@ public class Controller {
         updateButtons();
         if (model.player.getFightState()) startFightState();
         updateDungeonProgressBar();
+        mainActivity.updateInventoryView(model.player.getInventory());
+
+        mainActivity.keepItemSelected();
     }
 
     private void startFightState(){
@@ -66,6 +69,8 @@ public class Controller {
         model.player.updateInventory();
         mainActivity.updateInventoryView(model.player.getInventory());
         itemDeselected();
+
+        mainActivity.clearLastSelectedItem();
     }
 
     private void updateDungeonProgressBar(){

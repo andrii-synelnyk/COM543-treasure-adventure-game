@@ -24,10 +24,13 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar dungeonProgressBar;
     ProgressBar goblinHPBar;
     ListView inventoryList;
-    private int selectedPosition = -1; // -1 indicates no selection
+    private int selectedPosition = -1; // for deselection functionality
     TextView goblinHPText;
     TextView playerHPText;
     TextView dungeonProgressText;
+    TextView inventoryCountText;
+    private int savedPosition = -1; // for saving selected item between rooms
+    ListView listView;
 
 
     @Override
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         goblinHPText = findViewById(R.id.goblinHPText);
         playerHPText = findViewById(R.id.playerHPText);
         dungeonProgressText = findViewById(R.id.dungeonProgressText);
+        inventoryCountText = findViewById(R.id.inventoryCountText);
 
         controller = new Controller(this);
 
@@ -173,13 +177,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateInventoryView(ArrayList<Item> inventory){
+        //Update number of items in inventory text
+        inventoryCountText.setText("Items in inventory: " + inventory.size());
+
+        //Update inventory list
         ArrayList<String> inventoryString = new ArrayList<>();
 
         for (Item item : inventory){
             inventoryString.add(item.toString());
         }
 
-        ListView listView = findViewById(R.id.inventoryList);
+        listView = findViewById(R.id.inventoryList);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_single_choice, inventoryString);
 
@@ -195,16 +203,31 @@ public class MainActivity extends AppCompatActivity {
                     listView.setItemChecked(position, false);
                     selectedPosition = -1;
                     controller.itemDeselected();
+
+                    savedPosition = -1;
                 } else {
                     // Item selected
                     listView.setItemChecked(position, true);
                     selectedPosition = position;
                     controller.itemSelected(position);
+
+                    savedPosition = position;
                 }
             }
         });
 
         selectedPosition = -1;
+    }
+
+    public void keepItemSelected(){
+        if (savedPosition != -1) {
+            listView.setItemChecked(savedPosition, true);
+            controller.itemSelected(savedPosition);
+        }
+    }
+
+    public void clearLastSelectedItem(){
+        savedPosition = -1;
     }
 
 }

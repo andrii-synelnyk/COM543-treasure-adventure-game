@@ -17,6 +17,7 @@ public class Model {
     boolean isItemSelected = false;
     Item selectedItem;
     private final Random random = new Random();
+    Direction directionBack;
 
     Model() {
         startGame();
@@ -28,8 +29,6 @@ public class Model {
 
         player = new Player(startRoom);
 
-        player.addItemToInventory();
-        player.addItemToInventory();
         player.addItemToInventory();
     }
 
@@ -82,13 +81,18 @@ public class Model {
     }
 
     public void movePlayer(Direction direction){
+        saveDirectionBack(direction);
+
         Room currentRoom = player.getCurrentRoom();
         Map<Direction, Room> connections = currentRoom.getConnections();
 
         Room newRoom = connections.get(direction);
         player.moveTo(newRoom);
         if (player.getCurrentRoom().hasGoblin()) startFightState();
-        else if (!clearedRooms.contains(newRoom) && !newRoom.equals(startRoom)) clearedRooms.add(newRoom); // WEIRD WARNING
+        else if (!clearedRooms.contains(newRoom) && !newRoom.equals(startRoom)) {
+            clearedRooms.add(newRoom);
+            dropItem(0.3f);
+        }
 
         checkIfGameWin();
     }
@@ -98,13 +102,16 @@ public class Model {
         player.setFightState(true);
     }
 
-    private void stopFightState(){
+    private void stopFightState(boolean killedGoblin){
         player.setFightState(false);
 
-        Room currentRoom = player.getCurrentRoom();
-        if (!clearedRooms.contains(currentRoom) && !currentRoom.equals(startRoom)) clearedRooms.add(currentRoom); // WEIRD WARNING
+        if (killedGoblin) {
+            Room currentRoom = player.getCurrentRoom();
+            clearedRooms.add(currentRoom);
+            dropItem(0.6f);
 
-        checkIfGameWin();
+            checkIfGameWin();
+        }
     }
 
     public void fightOrUse(){
@@ -115,12 +122,12 @@ public class Model {
             }else if (currentGoblin.getHP() == selectedItem.getValue()){
                 currentGoblin.setHP(0);
                 selectedItem.setValue(0);
-                stopFightState();
+                stopFightState(true);
             } else {
                 int difference = selectedItem.getValue() - currentGoblin.getHP();
                 currentGoblin.setHP(0);
                 selectedItem.setValue(difference);
-                stopFightState();
+                stopFightState(true);
             }
         } else if (isItemSelected && selectedItem.getType() == ItemType.HealthPotion){
             int playerHealthDifference = player.getMaxHP() - player.getHP();
@@ -133,14 +140,15 @@ public class Model {
                 selectedItem.setValue(difference);
             }
         } else if (isItemSelected && selectedItem.getType() == ItemType.EscapePortal){
-            player.moveTo(startRoom);
+            escape();
             selectedItem.setValue(0);
-            stopFightState();
+            stopFightState(false);
+            System.out.println("Portal value: " + selectedItem.getValue());
         } else {
             int savedPlayerHP = player.getHP();
             player.setHP(savedPlayerHP - currentGoblin.getHP());
             currentGoblin.setHP(currentGoblin.getHP() - savedPlayerHP);
-            if (currentGoblin.getHP() <= 0) stopFightState();
+            if (currentGoblin.getHP() <= 0) stopFightState(true);
             else if (player.getHP() <= 0) gameOver();
         }
     }
@@ -178,6 +186,35 @@ public class Model {
 
    public void itemDeselected(){
         isItemSelected = false;
+   }
+
+   private void dropItem(float chance){
+       Random random = new Random();
+
+       if (random.nextFloat() <= chance) {
+           player.addItemToInventory();
+       }
+   }
+
+   private void escape(){
+        movePlayer(directionBack);
+   }
+
+   private void saveDirectionBack(Direction directionForward){
+        switch (directionForward){
+            case UP:
+                directionBack = Direction.DOWN;
+                break;
+            case DOWN:
+                directionBack = Direction.UP;
+                break;
+            case LEFT:
+                directionBack = Direction.RIGHT;
+                break;
+            case RIGHT:
+                directionBack = Direction.LEFT;
+                break;
+        }
    }
 }
 
