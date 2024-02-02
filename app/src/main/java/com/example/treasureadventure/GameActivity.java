@@ -2,6 +2,7 @@ package com.example.treasureadventure;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
     private int savedPosition = -1; // for saving selected item between rooms
     ListView listView;
     GameSaver gameSaver;
+    boolean loadButtonPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,9 @@ public class GameActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("");
         }
+
+        Intent intent = getIntent();
+        boolean loadButtonPressed = intent.getBooleanExtra("load-button", false);
 
         // Obtain references to the buttons
         moveUpButton = findViewById(R.id.moveUPButton);
@@ -62,7 +67,8 @@ public class GameActivity extends AppCompatActivity {
         dungeonProgressText = findViewById(R.id.dungeonProgressText);
         inventoryCountText = findViewById(R.id.inventoryCountText);
 
-        controller = new Controller(this);
+        if (!loadButtonPressed) controller = new Controller(this, false);
+        else controller = new Controller(this, true);
         gameSaver = new GameSaver(this);
 
         // Set up listeners for each button
@@ -103,11 +109,11 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    public void setupView(int playerMaxHP, int allDungeonRooms){
+    public void setupView(int playerMaxHP, int playerHP, int allDungeonRooms, int clearedRooms){
         changeFightOrUseButtonStatus(false);
-        updateHPBar(playerMaxHP, playerMaxHP); // Make hp bar 100% at the start
+        updateHPBar(playerHP, playerMaxHP); // Make hp bar 100% at the start
         showGoblinHPBar(false, 0, 0); // int values don't matter
-        updateDungeonProgressBar(0, allDungeonRooms);
+        updateDungeonProgressBar(clearedRooms, allDungeonRooms);
     }
 
     public void changeFightOrUseButtonStatus(boolean status){

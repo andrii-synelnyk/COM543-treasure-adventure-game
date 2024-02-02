@@ -7,8 +7,12 @@ public class Controller {
 
     GameActivity gameActivity;
 
-    Controller(GameActivity gameActivity){
-        model = new Model();
+    Controller(GameActivity gameActivity, boolean loaded){
+        if (!loaded) {
+            model = new Model();
+            model.initializeIfNotLoaded();
+        }
+        else model = new GameLoader(gameActivity).retreiveSave();
         view = new View();
 
         setupView(gameActivity);
@@ -19,7 +23,8 @@ public class Controller {
         updateButtons();
         gameActivity.updateInventoryView(model.player.getInventory());
 
-        gameActivity.setupView(model.player.getMaxHP(), model.getNumberOfAllRooms());
+        gameActivity.setupView(model.player.getMaxHP(), model.player.getHP(), model.getNumberOfAllRooms(), model.getNumberOfclearedRooms());
+        if (model.player.getFightState()) startFightState();
     }
 
     private void updateButtons(){

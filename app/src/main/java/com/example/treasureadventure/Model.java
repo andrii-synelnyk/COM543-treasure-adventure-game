@@ -22,8 +22,8 @@ public class Model {
     Room startRoom;
     @ElementList(entry = "room", inline = true, required = false)
     ArrayList<Room> rooms = new ArrayList<>();
-    @ElementList(entry = "clearedRoom", inline = true, required = false)
-    ArrayList<Room> clearedRooms = new ArrayList<>();
+    @ElementList(entry = "clearedRoomIds", inline = true, required = false)
+    ArrayList<Integer> clearedRoomsIds = new ArrayList<>();
     @Element
     boolean isItemSelected = false;
     @Element(required = false)
@@ -33,6 +33,10 @@ public class Model {
     Direction directionBack;
 
     Model() {
+
+    }
+
+    public void initializeIfNotLoaded(){
         startGame();
     }
 
@@ -104,9 +108,13 @@ public class Model {
             if (room.getId() == newRoomId) newRoom = room;
         }
         player.moveTo(newRoom);
+        int startRoomId = 0;
+        for (Room room : rooms){
+            if (room.isStartRoom()) startRoomId = room.getId();
+        }
         if (player.getCurrentRoom().hasGoblin()) startFightState();
-        else if (!clearedRooms.contains(newRoom) && !newRoom.equals(startRoom)) {
-            clearedRooms.add(newRoom);
+        else if (!clearedRoomsIds.contains(newRoomId) && newRoomId != startRoomId) {
+            clearedRoomsIds.add(newRoomId);
             dropItem(0.3f);
         }
 
@@ -123,7 +131,8 @@ public class Model {
 
         if (killedGoblin) {
             Room currentRoom = player.getCurrentRoom();
-            clearedRooms.add(currentRoom);
+            int currentRoomId = currentRoom.getId();
+            clearedRoomsIds.add(currentRoomId);
             dropItem(0.6f);
 
             checkIfGameWin();
@@ -170,7 +179,7 @@ public class Model {
     }
 
     private void checkIfGameWin(){
-        if (clearedRooms.size() == rooms.size() - 1) gameWin();
+        if (clearedRoomsIds.size() == rooms.size() - 1) gameWin();
     }
 
     private void gameOver(){
@@ -188,7 +197,7 @@ public class Model {
     }
 
     public int getNumberOfclearedRooms(){
-        return clearedRooms.size();
+        return clearedRoomsIds.size();
     }
 
     public ArrayList<Item> getInventory(){
