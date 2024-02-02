@@ -21,6 +21,7 @@ public class GameSaver {
             Serializer serializer = new Persister();
             // Serialize the Model object to a file in the internal storage
             serializer.write(model, file);
+            System.out.println("saved");
         } catch (Exception e) {
             e.printStackTrace(); // Handle the exception appropriately
         }

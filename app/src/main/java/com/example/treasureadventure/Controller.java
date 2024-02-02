@@ -5,33 +5,33 @@ public class Controller {
     Model model;
     View view;
 
-    MainActivity mainActivity;
+    GameActivity gameActivity;
 
-    Controller(MainActivity mainActivity){
+    Controller(GameActivity gameActivity){
         model = new Model();
         view = new View();
 
-        setupView(mainActivity);
+        setupView(gameActivity);
     }
 
-    private void setupView(MainActivity mainActivity){
-        this.mainActivity = mainActivity;
+    private void setupView(GameActivity gameActivity){
+        this.gameActivity = gameActivity;
         updateButtons();
-        mainActivity.updateInventoryView(model.player.getInventory());
+        gameActivity.updateInventoryView(model.player.getInventory());
 
-        mainActivity.setupView(model.player.getMaxHP(), model.getNumberOfAllRooms());
+        gameActivity.setupView(model.player.getMaxHP(), model.getNumberOfAllRooms());
     }
 
     private void updateButtons(){
         int[] availableRooms = model.checkAvailableRoomsToMoveTo();
-        if(availableRooms[0] == 0) mainActivity.changeMoveButtonStatus(Direction.UP, false);
-        else mainActivity.changeMoveButtonStatus(Direction.UP,true);
-        if(availableRooms[1] == 0) mainActivity.changeMoveButtonStatus(Direction.DOWN, false);
-        else mainActivity.changeMoveButtonStatus(Direction.DOWN, true);
-        if(availableRooms[2] == 0) mainActivity.changeMoveButtonStatus(Direction.LEFT, false);
-        else mainActivity.changeMoveButtonStatus(Direction.LEFT, true);
-        if(availableRooms[3] == 0) mainActivity.changeMoveButtonStatus(Direction.RIGHT, false);
-        else mainActivity.changeMoveButtonStatus(Direction.RIGHT, true);
+        if(availableRooms[0] == 0) gameActivity.changeMoveButtonStatus(Direction.UP, false);
+        else gameActivity.changeMoveButtonStatus(Direction.UP,true);
+        if(availableRooms[1] == 0) gameActivity.changeMoveButtonStatus(Direction.DOWN, false);
+        else gameActivity.changeMoveButtonStatus(Direction.DOWN, true);
+        if(availableRooms[2] == 0) gameActivity.changeMoveButtonStatus(Direction.LEFT, false);
+        else gameActivity.changeMoveButtonStatus(Direction.LEFT, true);
+        if(availableRooms[3] == 0) gameActivity.changeMoveButtonStatus(Direction.RIGHT, false);
+        else gameActivity.changeMoveButtonStatus(Direction.RIGHT, true);
     }
 
     public void move(Direction direction){
@@ -39,58 +39,58 @@ public class Controller {
         updateButtons();
         if (model.player.getFightState()) startFightState();
         updateDungeonProgressBar();
-        mainActivity.updateInventoryView(model.player.getInventory());
+        gameActivity.updateInventoryView(model.player.getInventory());
 
-        mainActivity.keepItemSelected();
+        gameActivity.keepItemSelected();
     }
 
     private void startFightState(){
-        mainActivity.changeFightOrUseButtonStatus(true);
-        mainActivity.changeAllMoveButtonsStatus(false);
+        gameActivity.changeFightOrUseButtonStatus(true);
+        gameActivity.changeAllMoveButtonsStatus(false);
 
-        mainActivity.showGoblinHPBar(true, model.currentGoblin.getHP(), model.currentGoblin.getMaxHP());
+        gameActivity.showGoblinHPBar(true, model.currentGoblin.getHP(), model.currentGoblin.getMaxHP());
     }
 
     private void stopFightState(){
-        mainActivity.changeFightOrUseButtonStatus(false);
+        gameActivity.changeFightOrUseButtonStatus(false);
         updateButtons();
         updateDungeonProgressBar();
 
-        mainActivity.showGoblinHPBar(false, 0, 0); // int values don't matter
+        gameActivity.showGoblinHPBar(false, 0, 0); // int values don't matter
     }
 
     public void fightOrUse(){
         model.fightOrUse();
-        mainActivity.updateHPBar(model.player.getHP(), model.player.getMaxHP());
-        mainActivity.updateGoblinHPBar(model.currentGoblin.getHP(), model.currentGoblin.getMaxHP());
+        gameActivity.updateHPBar(model.player.getHP(), model.player.getMaxHP());
+        gameActivity.updateGoblinHPBar(model.currentGoblin.getHP(), model.currentGoblin.getMaxHP());
         if (!model.player.getFightState()) stopFightState();
 
         // update view of items (change values or delete from the list)
         model.player.updateInventory();
-        mainActivity.updateInventoryView(model.player.getInventory());
+        gameActivity.updateInventoryView(model.player.getInventory());
         itemDeselected();
 
-        mainActivity.clearLastSelectedItem();
+        gameActivity.clearLastSelectedItem();
     }
 
     private void updateDungeonProgressBar(){
         int allRooms = model.getNumberOfAllRooms();
         int clearedRooms = model.getNumberOfclearedRooms();
 
-        mainActivity.updateDungeonProgressBar(clearedRooms, allRooms);
+        gameActivity.updateDungeonProgressBar(clearedRooms, allRooms);
     }
 
     public void itemSelected(int id){
-        // list item is highlighted inside mainActivity
+        // list item is highlighted inside gameActivity
         // button is changed from fight to use from controller
         // item selected passed into model
 
-        mainActivity.changeFightOrUseButtonText("Use");
+        gameActivity.changeFightOrUseButtonText("Use");
         model.itemSelected(id);
     }
 
     public void itemDeselected(){
-        mainActivity.changeFightOrUseButtonText("Fight bare-handed");
+        gameActivity.changeFightOrUseButtonText("Fight bare-handed");
         model.itemDeselected();
     }
 }
