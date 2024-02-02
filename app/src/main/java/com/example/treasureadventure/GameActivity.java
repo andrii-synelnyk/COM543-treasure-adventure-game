@@ -39,7 +39,6 @@ public class GameActivity extends AppCompatActivity {
     private int savedPosition = -1; // for saving selected item between rooms
     ListView listView;
     GameSaver gameSaver;
-    boolean loadButtonPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +52,7 @@ public class GameActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         boolean loadButtonPressed = intent.getBooleanExtra("load-button", false);
+        int numberOfRooms = intent.getIntExtra("number-of-rooms", 10);
 
         // Obtain references to the buttons
         moveUpButton = findViewById(R.id.moveUPButton);
@@ -69,8 +69,8 @@ public class GameActivity extends AppCompatActivity {
         dungeonProgressText = findViewById(R.id.dungeonProgressText);
         inventoryCountText = findViewById(R.id.inventoryCountText);
 
-        if (!loadButtonPressed) controller = new Controller(this, false);
-        else controller = new Controller(this, true);
+        if (!loadButtonPressed) controller = new Controller(this, false, numberOfRooms);
+        else controller = new Controller(this, true, -1); // -1 is a placeholder, the number of rooms will be taken from save
         gameSaver = new GameSaver(this);
 
         // Set up listeners for each button

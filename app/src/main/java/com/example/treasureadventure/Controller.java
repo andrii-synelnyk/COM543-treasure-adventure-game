@@ -7,10 +7,10 @@ public class Controller {
 
     GameActivity gameActivity;
 
-    Controller(GameActivity gameActivity, boolean loaded){
+    Controller(GameActivity gameActivity, boolean loaded, int numberOfRooms){
         if (!loaded) {
             model = new Model();
-            model.initializeIfNotLoaded();
+            model.initializeIfNotLoaded(numberOfRooms);
         }
         else model = new GameLoader(gameActivity).retreiveSave();
         view = new View();

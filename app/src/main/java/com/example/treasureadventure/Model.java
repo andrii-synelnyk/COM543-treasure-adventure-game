@@ -36,12 +36,12 @@ public class Model {
 
     }
 
-    public void initializeIfNotLoaded(){
-        startGame();
+    public void initializeIfNotLoaded(int roomsNeeded){
+        startGame(roomsNeeded);
     }
 
-    private void startGame(){
-        startRoom = generateAndConstructDungeon();
+    private void startGame(int roomsNeeded){
+        startRoom = generateAndConstructDungeon(roomsNeeded);
         spawnGoblins();
 
         player = new Player(startRoom);
@@ -49,8 +49,7 @@ public class Model {
         player.addItemToInventory();
     }
 
-    private Room generateAndConstructDungeon(){
-        int roomsNeeded = 6;
+    private Room generateAndConstructDungeon(int roomsNeeded){
         DungeonGenerator generator = new DungeonGenerator();
         generator.generateDungeon(roomsNeeded);
 
