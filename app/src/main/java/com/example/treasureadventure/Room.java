@@ -6,20 +6,26 @@ import java.util.Random;
 
 public class Room {
 
-    private Map<Direction, Room> connections;
+    private Map<Direction, Integer> connections;
     private boolean isStartRoom;
     private final Random random = new Random();
     private boolean hasGoblin = false;
     private Goblin thisRoomGoblin;
 
+    private static int nextId = 1; // Static variable to keep track of the next ID
+    private int id;
+
     Room(boolean isStartRoom){
+        this.id = nextId; // Assign the current ID to the new object
+        nextId++;
+
         this.isStartRoom = isStartRoom;
 
-        Map<Direction, Room> placeholderConnections = new HashMap<>();
-        placeholderConnections.put(Direction.UP, null);
-        placeholderConnections.put(Direction.DOWN, null);
-        placeholderConnections.put(Direction.RIGHT, null);
-        placeholderConnections.put(Direction.LEFT, null);
+        Map<Direction, Integer> placeholderConnections = new HashMap<>();
+        placeholderConnections.put(Direction.UP, -1);
+        placeholderConnections.put(Direction.DOWN, -1);
+        placeholderConnections.put(Direction.RIGHT, -1);
+        placeholderConnections.put(Direction.LEFT, -1);
 
         connections = placeholderConnections;
     }
@@ -29,20 +35,20 @@ public class Room {
         hasGoblin = true;
     }
 
-    public void setUPConnection(Room connectedRoom){
-        connections.put(Direction.UP, connectedRoom);
+    public void setUPConnection(int connectedRoomId){
+        connections.put(Direction.UP, connectedRoomId);
     }
 
-    public void setDOWNConnection(Room connectedRoom){
-        connections.put(Direction.DOWN, connectedRoom);
+    public void setDOWNConnection(int connectedRoomId){
+        connections.put(Direction.DOWN, connectedRoomId);
     }
 
-    public void setRIGHTConnection(Room connectedRoom){
-        connections.put(Direction.RIGHT, connectedRoom);
+    public void setRIGHTConnection(int connectedRoomId){
+        connections.put(Direction.RIGHT, connectedRoomId);
     }
 
-    public void setLEFTConnection(Room connectedRoom){
-        connections.put(Direction.LEFT, connectedRoom);
+    public void setLEFTConnection(int connectedRoomId){
+        connections.put(Direction.LEFT, connectedRoomId);
     }
 
     public boolean hasGoblin(){
@@ -53,11 +59,15 @@ public class Room {
         return thisRoomGoblin;
     }
 
-    public Map<Direction, Room> getConnections() {
+    public Map<Direction, Integer> getConnections() {
         return connections;
     }
 
     public boolean isStartRoom(){
         return isStartRoom;
+    }
+
+    public int getId() {
+        return id; // Getter method to access the unique ID
     }
 }

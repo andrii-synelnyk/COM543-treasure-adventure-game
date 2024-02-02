@@ -70,12 +70,12 @@ public class Model {
         int[] availableDirections = {0, 0, 0, 0};
 
         Room currentRoom = player.getCurrentRoom();
-        Map<Direction, Room> connections = currentRoom.getConnections();
+        Map<Direction, Integer> connections = currentRoom.getConnections();
 
-        if(connections.get(Direction.UP) != null) availableDirections[0] = 1;
-        if(connections.get(Direction.DOWN) != null) availableDirections[1] = 1;
-        if(connections.get(Direction.LEFT) != null) availableDirections[2] = 1;
-        if(connections.get(Direction.RIGHT) != null) availableDirections[3] = 1;
+        if(connections.get(Direction.UP) != -1) availableDirections[0] = 1;
+        if(connections.get(Direction.DOWN) != -1) availableDirections[1] = 1;
+        if(connections.get(Direction.LEFT) != -1) availableDirections[2] = 1;
+        if(connections.get(Direction.RIGHT) != -1) availableDirections[3] = 1;
 
         return availableDirections;
     }
@@ -84,9 +84,12 @@ public class Model {
         saveDirectionBack(direction);
 
         Room currentRoom = player.getCurrentRoom();
-        Map<Direction, Room> connections = currentRoom.getConnections();
-
-        Room newRoom = connections.get(direction);
+        Map<Direction, Integer> connections = currentRoom.getConnections();
+        Room newRoom = null;
+        int newRoomId = connections.get(direction);
+        for (Room room : rooms){
+            if (room.getId() == newRoomId) newRoom = room;
+        }
         player.moveTo(newRoom);
         if (player.getCurrentRoom().hasGoblin()) startFightState();
         else if (!clearedRooms.contains(newRoom) && !newRoom.equals(startRoom)) {

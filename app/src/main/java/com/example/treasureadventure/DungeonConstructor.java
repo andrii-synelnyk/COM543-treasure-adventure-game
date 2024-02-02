@@ -37,26 +37,31 @@ public class DungeonConstructor {
         if (coordinateX + 1 < dungeonMap.length) checkRIGHT = true;
 
         Room currentRoom = checkIfAlreadyExists(coordinateY, coordinateX);
+        int currentRoomId = currentRoom.getId();
 
         if (checkUP && dungeonMap[coordinateY - 1][coordinateX] == 1) {
             Room connectedRoom = checkIfAlreadyExists(coordinateY - 1, coordinateX);
-            currentRoom.setUPConnection(connectedRoom);
-            connectedRoom.setDOWNConnection(currentRoom);
+            int connectedRoomId = connectedRoom.getId();
+            currentRoom.setUPConnection(connectedRoomId);
+            connectedRoom.setDOWNConnection(currentRoomId);
         }
         if (checkDOWN && dungeonMap[coordinateY + 1][coordinateX] == 2) {
             Room connectedRoom = checkIfAlreadyExists(coordinateY + 1, coordinateX);
-            currentRoom.setDOWNConnection(connectedRoom);
-            connectedRoom.setUPConnection(currentRoom);
+            int connectedRoomId = connectedRoom.getId();
+            currentRoom.setDOWNConnection(connectedRoomId);
+            connectedRoom.setUPConnection(currentRoomId);
         }
         if (checkLEFT && dungeonMap[coordinateY][coordinateX - 1] == 3) {
             Room connectedRoom = checkIfAlreadyExists(coordinateY, coordinateX - 1);
-            currentRoom.setLEFTConnection(connectedRoom);
-            connectedRoom.setRIGHTConnection(currentRoom);
+            int connectedRoomId = connectedRoom.getId();
+            currentRoom.setLEFTConnection(connectedRoomId);
+            connectedRoom.setRIGHTConnection(currentRoomId);
         }
         if (checkRIGHT && dungeonMap[coordinateY][coordinateX + 1] == 4) {
             Room connectedRoom = checkIfAlreadyExists(coordinateY, coordinateX + 1);
-            currentRoom.setRIGHTConnection(connectedRoom);
-            connectedRoom.setLEFTConnection(currentRoom);
+            int connectedRoomId = connectedRoom.getId();
+            currentRoom.setRIGHTConnection(connectedRoomId);
+            connectedRoom.setLEFTConnection(currentRoomId);
         }
     }
 
