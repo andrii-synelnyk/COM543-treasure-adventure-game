@@ -2,7 +2,6 @@ package com.example.treasureadventure;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +9,7 @@ import android.widget.Button;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -22,9 +22,12 @@ public class MainActivity extends AppCompatActivity {
     Button fightOrUseButton;
     ProgressBar playerHPBar;
     ProgressBar dungeonProgressBar;
-    ProgressBar goblinHealthBar;
+    ProgressBar goblinHPBar;
     ListView inventoryList;
     private int selectedPosition = -1; // -1 indicates no selection
+    TextView goblinHPText;
+    TextView playerHPText;
+    TextView dungeonProgressText;
 
 
     @Override
@@ -40,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
         fightOrUseButton = findViewById(R.id.fightOrUseButton);
         playerHPBar = findViewById(R.id.playerHPBar);
         dungeonProgressBar = findViewById(R.id.dungeonProgressBar);
-        goblinHealthBar = findViewById(R.id.goblinHealthBar);
+        goblinHPBar = findViewById(R.id.goblinHPBar);
         inventoryList = findViewById(R.id.inventoryList);
+        goblinHPText = findViewById(R.id.goblinHPText);
+        playerHPText = findViewById(R.id.playerHPText);
+        dungeonProgressText = findViewById(R.id.dungeonProgressText);
 
         controller = new Controller(this);
-        changeFightOrUseButtonStatus(false);
-        updateHPBar(10, 10); // Make hp bar 100% at the start
-        showGoblinHealthBar(false, 0, 0); // int values don't matter
 
         // Set up listeners for each button
         moveUpButton.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +88,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void setupView(int playerMaxHP, int allDungeonRooms){
+        changeFightOrUseButtonStatus(false);
+        updateHPBar(playerMaxHP, playerMaxHP); // Make hp bar 100% at the start
+        showGoblinHPBar(false, 0, 0); // int values don't matter
+        updateDungeonProgressBar(0, allDungeonRooms);
+    }
+
     public void changeFightOrUseButtonStatus(boolean status){
         fightOrUseButton.setEnabled(status);
     }
@@ -119,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (newHP <= 0) playerHPBar.setProgress(0);
         else playerHPBar.setProgress(percentsToDisplay);
+        
+        //Update text on the bar
+        playerHPText.setText(newHP + "/" + maxHP);
     }
 
     public void updateDungeonProgressBar(int clearedRooms, int allRooms){
@@ -126,11 +139,20 @@ public class MainActivity extends AppCompatActivity {
         int percentsToDisplay = (int) Math.ceil(clearedRooms / onePercent);
 
         dungeonProgressBar.setProgress(percentsToDisplay);
+        
+        //Update text on the bar
+        dungeonProgressText.setText(clearedRooms + "/" + allRooms);
     }
 
-    public void showGoblinHealthBar(boolean status, int newHP, int maxHP){
-        if (status) goblinHealthBar.setVisibility(View.VISIBLE);
-        else goblinHealthBar.setVisibility(View.INVISIBLE);
+    public void showGoblinHPBar(boolean status, int newHP, int maxHP){
+        if (status) {
+            goblinHPBar.setVisibility(View.VISIBLE);
+            goblinHPText.setVisibility(View.VISIBLE);
+        }
+        else {
+            goblinHPBar.setVisibility(View.INVISIBLE);
+            goblinHPText.setVisibility(View.INVISIBLE);
+        }
 
         updateGoblinHPBar(newHP, maxHP); // needed for after damaging goblin, teleporting and coming back to him his health stays the same
     }
@@ -139,8 +161,11 @@ public class MainActivity extends AppCompatActivity {
         float onePercent = (float) maxHP / 100;
         int percentsToDisplay = (int) Math.ceil(newHP / onePercent);
 
-        if (newHP <= 0) goblinHealthBar.setProgress(0);
-        else goblinHealthBar.setProgress(percentsToDisplay);
+        if (newHP <= 0) goblinHPBar.setProgress(0);
+        else goblinHPBar.setProgress(percentsToDisplay);
+        
+        //Update text on the bar
+        goblinHPText.setText(newHP + "/" + maxHP);
     }
 
     public void changeFightOrUseButtonText(String text){
@@ -169,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                     // Item deselected
                     listView.setItemChecked(position, false);
                     selectedPosition = -1;
-                    controller.itemDeselected(); // Implement this method to handle deselection
+                    controller.itemDeselected();
                 } else {
                     // Item selected
                     listView.setItemChecked(position, true);

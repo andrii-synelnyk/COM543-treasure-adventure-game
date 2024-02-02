@@ -34,7 +34,7 @@ public class Model {
     }
 
     private Room generateAndConstructDungeon(){
-        int roomsNeeded = 15;
+        int roomsNeeded = 10;
         DungeonGenerator generator = new DungeonGenerator();
         generator.generateDungeon(roomsNeeded);
 

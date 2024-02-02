@@ -1,7 +1,5 @@
 package com.example.treasureadventure;
 
-import android.graphics.Color;
-
 public class Controller {
 
     Model model;
@@ -13,9 +11,15 @@ public class Controller {
         model = new Model();
         view = new View();
 
+        setupView(mainActivity);
+    }
+
+    private void setupView(MainActivity mainActivity){
         this.mainActivity = mainActivity;
         updateButtons();
         mainActivity.updateInventoryView(model.player.getInventory());
+
+        mainActivity.setupView(model.player.getMaxHP(), model.getNumberOfAllRooms());
     }
 
     private void updateButtons(){
@@ -41,7 +45,7 @@ public class Controller {
         mainActivity.changeFightOrUseButtonStatus(true);
         mainActivity.changeAllMoveButtonsStatus(false);
 
-        mainActivity.showGoblinHealthBar(true, model.currentGoblin.getHP(), model.currentGoblin.getMaxHP());
+        mainActivity.showGoblinHPBar(true, model.currentGoblin.getHP(), model.currentGoblin.getMaxHP());
     }
 
     private void stopFightState(){
@@ -49,7 +53,7 @@ public class Controller {
         updateButtons();
         updateDungeonProgressBar();
 
-        mainActivity.showGoblinHealthBar(false, 0, 0); // int values don't matter
+        mainActivity.showGoblinHPBar(false, 0, 0); // int values don't matter
     }
 
     public void fightOrUse(){
