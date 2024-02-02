@@ -1,23 +1,21 @@
 package com.example.treasureadventure;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 import java.util.ArrayList;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@Root
 public class Player {
-    @XmlElement
+    @Element
     private int maxHP = 30;
-    @XmlElement
+    @Element
     private int hp;
-    @XmlElement
+    @Element
     private Room currentRoom;
-    @XmlElement
+    @Element
     private boolean fightState = false;
-    @XmlElement
+    @ElementList(entry = "item", inline = true, required = false)
     private ArrayList<Item> inventory = new ArrayList<>();
 
     // JAXB requires a no-arg constructor for serialization

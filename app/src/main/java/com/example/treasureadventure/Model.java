@@ -1,37 +1,35 @@
 package com.example.treasureadventure;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@Root
 public class Model {
-    @XmlElement
+    @Element
     Player player;
-    @XmlElement
+    @Element(required = false)
     Goblin currentGoblin;
-    @XmlElement
+    @Element
     boolean gameOver = false;
-    @XmlElement
+    @Element
     boolean gameWin = false;
-    @XmlElement
+    @Element
     Room startRoom;
-    @XmlElement
-    HashSet<Room> rooms = new HashSet<>();
-    @XmlElement
-    HashSet<Room> clearedRooms = new HashSet<>();
-    @XmlElement
+    @ElementList(entry = "room", inline = true, required = false)
+    ArrayList<Room> rooms = new ArrayList<>();
+    @ElementList(entry = "clearedRoom", inline = true, required = false)
+    ArrayList<Room> clearedRooms = new ArrayList<>();
+    @Element
     boolean isItemSelected = false;
-    @XmlElement
+    @Element(required = false)
     Item selectedItem;
     private final Random random = new Random();
-    @XmlElement
+    @Element(required = false)
     Direction directionBack;
 
     Model() {

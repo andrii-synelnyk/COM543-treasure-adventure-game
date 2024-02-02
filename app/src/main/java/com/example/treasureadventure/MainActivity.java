@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     TextView inventoryCountText;
     private int savedPosition = -1; // for saving selected item between rooms
     ListView listView;
+    ImageButton saveButton;
+    GameSaver gameSaver;
 
 
     @Override
@@ -52,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
         playerHPText = findViewById(R.id.playerHPText);
         dungeonProgressText = findViewById(R.id.dungeonProgressText);
         inventoryCountText = findViewById(R.id.inventoryCountText);
+        saveButton = findViewById(R.id.saveButton);
 
         controller = new Controller(this);
+        gameSaver = new GameSaver(this);
 
         // Set up listeners for each button
         moveUpButton.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +93,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 controller.fightOrUse();
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameSaver.save(controller.model);
             }
         });
     }

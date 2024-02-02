@@ -1,18 +1,15 @@
 package com.example.treasureadventure;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAccessType;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 import java.util.Random;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@Root
 public class Item {
 
-    @XmlElement
+    @Element
     ItemType type;
-    @XmlElement
+    @Element
     private int value;
     private final Random random = new Random();
 

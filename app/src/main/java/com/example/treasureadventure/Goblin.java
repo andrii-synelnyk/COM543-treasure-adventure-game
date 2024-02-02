@@ -1,19 +1,16 @@
 package com.example.treasureadventure;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAccessType;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 import java.util.Random;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@Root
 public class Goblin {
 
     private final Random random = new Random();
-    @XmlElement
+    @Element
     private int maxHP;
-    @XmlElement
+    @Element
     private int hp;
 
     // No-argument constructor for JAXB

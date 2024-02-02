@@ -83,7 +83,7 @@ public class DungeonConstructor {
         }
     }
 
-    public HashSet<Room> getRoomsSet(){
-        return new HashSet<>(rooms.values());
+    public ArrayList<Room> getRoomsSet(){
+        return new ArrayList<>(rooms.values());
     }
 }

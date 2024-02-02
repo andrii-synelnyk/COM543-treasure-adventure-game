@@ -1,28 +1,26 @@
 package com.example.treasureadventure;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAccessType;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementMap;
+import org.simpleframework.xml.Root;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@Root
 public class Room {
-    @XmlElement
+    @ElementMap(entry = "connection", key = "direction", attribute = true, inline = true)
     private Map<Direction, Integer> connections;
-    @XmlElement
+    @Element
     private boolean isStartRoom;
     private final Random random = new Random();
-    @XmlElement
+    @Element(required = false)
     private boolean hasGoblin = false;
-    @XmlElement
+    @Element(required = false)
     private Goblin thisRoomGoblin;
-    @XmlElement
+
     private static int nextId = 1; // Static variable to keep track of the next ID
-    @XmlElement
+    @Element
     private int id;
 
     public Room() {
