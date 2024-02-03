@@ -20,7 +20,7 @@ public class Goblin {
 
     public Goblin(boolean generateStats) {
         if (generateStats) {
-            maxHP = 10 + random.nextInt(6); // max 15
+            maxHP = 10 + random.nextInt(3); // max 12
             hp = maxHP;
         }
     }
