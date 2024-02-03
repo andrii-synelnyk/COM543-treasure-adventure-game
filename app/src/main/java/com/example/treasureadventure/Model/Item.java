@@ -27,10 +27,10 @@ public class Item {
     private void randomChooseItemType(){
         int randomFactor = random.nextInt(100); // Generate a number between 0 and 99
 
-        if (randomFactor < 60) { // 60% chance
+        if (randomFactor < 50) { // 50% chance
             type = ItemType.Sword;
             value = 5 + random.nextInt(6);
-        } else if (randomFactor < 90) { // Additional 30% chance (60% to 89%)
+        } else if (randomFactor < 90) { // Additional 30% chance (50% to 89%)
             type = ItemType.HealthPotion;
             value = 3 + random.nextInt(4);
         } else { // Remaining 10% chance (90% to 99%)
@@ -56,7 +56,7 @@ public class Item {
             case Sword:
                 return "🔪 Knife | " + "damages " + value;
             case HealthPotion:
-                return "💊 Stimulant | heals " + value;
+                return "💊 Pill | heals " + value;
             case EscapePortal:
                 return "🚪 Escape | to prev room";
         }
