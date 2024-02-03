@@ -1,23 +1,25 @@
-package com.example.treasureadventure;
+package com.example.treasureadventure.Model;
+
+import com.example.treasureadventure.Enums.Direction;
+import com.example.treasureadventure.Enums.ItemType;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 
 @Root
 public class Model {
     @Element
-    Player player;
+    public Player player;
     @Element(required = false)
-    Goblin currentGoblin;
+    public Goblin currentGoblin;
     @Element
-    boolean gameOver = false;
+    public boolean gameOver = false;
     @Element
-    boolean gameWin = false;
+    public boolean gameWin = false;
     @Element
     Room startRoom;
     @ElementList(entry = "room", inline = true, required = false)
@@ -32,7 +34,7 @@ public class Model {
     @Element(required = false)
     Direction directionBack;
 
-    Model() {
+    public Model() {
 
     }
 

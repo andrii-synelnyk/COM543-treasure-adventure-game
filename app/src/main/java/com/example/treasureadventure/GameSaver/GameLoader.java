@@ -1,6 +1,8 @@
-package com.example.treasureadventure;
+package com.example.treasureadventure.GameSaver;
 
 import android.content.Context;
+
+import com.example.treasureadventure.Model.Model;
 
 import org.simpleframework.xml.core.Persister;
 

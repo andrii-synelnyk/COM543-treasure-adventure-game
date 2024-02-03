@@ -1,4 +1,6 @@
-package com.example.treasureadventure;
+package com.example.treasureadventure.Model;
+
+import com.example.treasureadventure.Enums.Direction;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementMap;

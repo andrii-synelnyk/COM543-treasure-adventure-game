@@ -1,19 +1,21 @@
-package com.example.treasureadventure;
+package com.example.treasureadventure.Controller;
+
+import com.example.treasureadventure.Enums.Direction;
+import com.example.treasureadventure.GameSaver.GameLoader;
+import com.example.treasureadventure.Model.Model;
+import com.example.treasureadventure.View.GameActivity;
 
 public class Controller {
 
-    Model model;
-    View view;
-
+    public Model model;
     GameActivity gameActivity;
 
-    Controller(GameActivity gameActivity, boolean loaded, int numberOfRooms){
+    public Controller(GameActivity gameActivity, boolean loaded, int numberOfRooms){
         if (!loaded) {
             model = new Model();
             model.initializeIfNotLoaded(numberOfRooms);
         }
         else model = new GameLoader(gameActivity).retreiveSave();
-        view = new View();
 
         setupView(gameActivity);
     }

@@ -1,4 +1,4 @@
-package com.example.treasureadventure;
+package com.example.treasureadventure.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.FrameLayout;
 import android.view.ViewGroup;
+
+import com.example.treasureadventure.R;
 
 import java.io.File;
 

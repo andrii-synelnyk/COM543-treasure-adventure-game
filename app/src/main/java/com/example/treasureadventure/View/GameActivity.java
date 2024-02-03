@@ -1,4 +1,4 @@
-package com.example.treasureadventure;
+package com.example.treasureadventure.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -20,6 +19,12 @@ import android.widget.TextView;
 import android.app.AlertDialog;
 import android.graphics.ColorMatrix;
 import android.widget.Toast;
+
+import com.example.treasureadventure.Controller.Controller;
+import com.example.treasureadventure.Enums.Direction;
+import com.example.treasureadventure.GameSaver.GameSaver;
+import com.example.treasureadventure.Model.Item;
+import com.example.treasureadventure.R;
 
 import java.util.ArrayList;
 

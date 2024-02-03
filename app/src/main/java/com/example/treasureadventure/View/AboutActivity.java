@@ -1,9 +1,11 @@
-package com.example.treasureadventure;
+package com.example.treasureadventure.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import com.example.treasureadventure.R;
 
 public class AboutActivity extends AppCompatActivity {
 

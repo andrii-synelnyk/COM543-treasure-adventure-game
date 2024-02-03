@@ -1,4 +1,4 @@
-package com.example.treasureadventure;
+package com.example.treasureadventure.Model;
 
 import java.util.ArrayList;
 import java.util.Arrays;

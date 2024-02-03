@@ -1,8 +1,11 @@
-package com.example.treasureadventure;
+package com.example.treasureadventure.GameSaver;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import android.content.Context;
+
+import com.example.treasureadventure.Model.Model;
+
 import java.io.File;
 
 public class GameSaver {

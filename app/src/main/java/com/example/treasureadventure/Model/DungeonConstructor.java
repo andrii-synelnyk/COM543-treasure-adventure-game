@@ -1,9 +1,7 @@
-package com.example.treasureadventure;
+package com.example.treasureadventure.Model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 
 public class DungeonConstructor {

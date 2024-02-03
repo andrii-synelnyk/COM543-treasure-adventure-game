@@ -1,4 +1,4 @@
-package com.example.treasureadventure;
+package com.example.treasureadventure.Model;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
