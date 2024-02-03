@@ -32,7 +32,7 @@
 
     <ListView
         android:id="@+id/inventoryList"
-        android:layout_width="239dp"
+        android:layout_width="350dp"
         android:layout_height="152dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
@@ -41,15 +41,16 @@
 
     <ProgressBar
         android:id="@+id/dungeonProgressBar"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="93dp"
-        android:layout_height="95dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="40dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="335dp"
+        android:layout_height="13dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="37dp"
         android:indeterminate="false"
-        android:progressDrawable="@drawable/circular_progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inventoryList" />
 
     <ProgressBar
         android:id="@+id/playerHPBar"
@@ -58,11 +59,11 @@
         android:layout_height="21dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="8dp"
         android:indeterminate="false"
         android:progressTint="@color/player_hp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inventoryList" />
+        app:layout_constraintTop_toBottomOf="@+id/dungeonProgressBar" />
 
     <Button
         android:id="@+id/moveUPButton"
@@ -137,11 +138,15 @@
         android:indeterminate="false"
         android:progressDrawable="@drawable/circular_progress_bar"
         android:text="TextView"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/dungeonProgressBar"
         app:layout_constraintEnd_toEndOf="@+id/dungeonProgressBar"
+        app:layout_constraintHorizontal_bias="0.032"
         app:layout_constraintStart_toStartOf="@+id/dungeonProgressBar"
         app:layout_constraintTop_toTopOf="@+id/dungeonProgressBar"
-        android:textColor="@color/black"/>
+        app:layout_constraintVertical_bias="0.0"
+        android:textSize="9dp"
+        />
 
     <TextView
         android:id="@+id/playerHPText"

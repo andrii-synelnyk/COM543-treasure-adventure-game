@@ -58,7 +58,7 @@ public class Item {
             case HealthPotion:
                 return "💊 Pill | heals " + value;
             case EscapePortal:
-                return "🚪 Escape | to prev room";
+                return "🚪 Escape | to previous room";
         }
         return "Empty Item";
     }
