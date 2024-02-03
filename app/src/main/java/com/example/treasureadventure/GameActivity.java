@@ -283,7 +283,7 @@ public class GameActivity extends AppCompatActivity {
             builder.setMessage("Congratulations!");
         }else {
             builder.setTitle("YOU LOST 😢");
-            builder.setTitle("Try one more time");
+            builder.setMessage("Try one more time");
         }
 
         // Add the button

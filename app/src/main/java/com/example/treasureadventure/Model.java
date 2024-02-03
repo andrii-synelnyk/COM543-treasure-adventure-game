@@ -114,7 +114,7 @@ public class Model {
         if (player.getCurrentRoom().hasGoblin()) startFightState();
         else if (!clearedRoomsIds.contains(newRoomId) && newRoomId != startRoomId) {
             clearedRoomsIds.add(newRoomId);
-            dropItem(0.3f);
+            dropItem(0.25f);
         }
 
         checkIfGameWin();
@@ -132,7 +132,7 @@ public class Model {
             Room currentRoom = player.getCurrentRoom();
             int currentRoomId = currentRoom.getId();
             clearedRoomsIds.add(currentRoomId);
-            dropItem(0.6f);
+            dropItem(0.55f);
 
             checkIfGameWin();
         }
