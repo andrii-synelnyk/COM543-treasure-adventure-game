@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Number of Rooms:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upon selecting &quot;New Game&quot;, you will be prompted to specify the number of rooms you wish to explore. Each new game generates a unique labyrinth. The quantity of monsters present correlates with the total number of rooms."
+            android:layout_marginBottom="16dp"
+            android:textSize="15sp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Goal:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="To win, you must explore all the rooms and survive."
+            android:layout_marginBottom="16dp"
+            android:textSize="15sp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Movement:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Navigate through the rooms using the four buttons located at the bottom-left of the screen. Each room can have a maximum of four connections to other rooms. Buttons corresponding to unavailable directions will be disabled."
+            android:layout_marginBottom="16dp"
+            android:textSize="15sp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Interact Button:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="The button in the bottom-right corner has two states: &quot;Attack&quot; when no item from the inventory is selected, and &quot;Use&quot; when an item is selected."
+            android:layout_marginBottom="16dp"
+            android:textSize="15sp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Inventory:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Each time you enter a room or defeat an enemy, there's a chance to receive one of three items. These items can only be used during a fight."
+            android:layout_marginBottom="16dp"
+            android:textSize="15sp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Knife: Inflicts random damage. Select it and press &quot;Use&quot; during an enemy encounter to deal damage equal to the knife's damage value. The knife's damage decreases proportionally to the health points the monster loses."
+            android:layout_marginBottom="16dp"
+            android:textSize="15sp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pill: Restores a number of your HP equal to its value. Functions similarly to the knife: its value decreases as it restores HP."
+            android:layout_marginBottom="16dp"
+            android:textSize="15sp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Escape Door: Transports the player to the last room visited before encountering a monster."
+            android:layout_marginBottom="16dp"
+            android:textSize="15sp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Progress:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="A circular progress bar above the player's HP indicates the number of rooms already cleared."
+            android:layout_marginBottom="16dp"
+            android:textSize="15sp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Saving the Game:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="To save your progress, press the &quot;Save&quot; button in the top-right corner of the screen. This action creates a new save file. You can resume the saved game using the &quot;Load Game&quot; option in the menu."
+            android:layout_marginBottom="16dp"
+            android:textSize="15sp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+</ScrollView>

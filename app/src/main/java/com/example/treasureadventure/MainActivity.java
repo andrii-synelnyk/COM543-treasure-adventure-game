@@ -20,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
     Button newGameButton;
     Button loadGameButton;
+    Button tutorialButton;
+    Button aboutButton;
+    Button exitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
         newGameButton = findViewById(R.id.newGameButton);
         loadGameButton = findViewById(R.id.loadGameButton);
+        tutorialButton = findViewById(R.id.tutorialButton);
+        aboutButton = findViewById(R.id.aboutButton);
+        exitButton = findViewById(R.id.exitButton);
 
         checkIfSaveExists();
 
@@ -49,6 +55,29 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, GameActivity.class);
                 intent.putExtra("load-button", true);
                 startActivity(intent);
+            }
+        });
+
+        tutorialButton.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TutorialActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        aboutButton.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        exitButton.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
