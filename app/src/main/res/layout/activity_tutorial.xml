@@ -104,7 +104,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Knife: Inflicts random damage. Select it and press &quot;Use&quot; during an enemy encounter to deal damage equal to the knife's damage value. The knife's damage decreases proportionally to the health points the monster loses."
+            android:text="Knife: Inflicts damage. Select it and press &quot;Use&quot; during an enemy encounter to deal damage equal to the knife's damage value. The knife's damage decreases proportionally to the health points the monster loses."
             android:layout_marginBottom="16dp"
             android:textSize="15sp"
             android:textColor="@color/white"/>
