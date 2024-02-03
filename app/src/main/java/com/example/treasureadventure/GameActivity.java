@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,10 +13,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.app.AlertDialog;
+import android.graphics.ColorMatrix;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -39,6 +43,7 @@ public class GameActivity extends AppCompatActivity {
     private int savedPosition = -1; // for saving selected item between rooms
     ListView listView;
     GameSaver gameSaver;
+    ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +73,7 @@ public class GameActivity extends AppCompatActivity {
         playerHPText = findViewById(R.id.playerHPText);
         dungeonProgressText = findViewById(R.id.dungeonProgressText);
         inventoryCountText = findViewById(R.id.inventoryCountText);
+        image = findViewById(R.id.imageView);
 
         if (!loadButtonPressed) controller = new Controller(this, false, numberOfRooms);
         else controller = new Controller(this, true, -1); // -1 is a placeholder, the number of rooms will be taken from save
@@ -111,11 +117,12 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    public void setupView(int playerMaxHP, int playerHP, int allDungeonRooms, int clearedRooms){
+    public void setupView(int playerMaxHP, int playerHP, int allDungeonRooms, int clearedRooms, boolean fightState){
         changeFightOrUseButtonStatus(false);
         updateHPBar(playerHP, playerMaxHP); // Make hp bar 100% at the start
         showGoblinHPBar(false, 0, 0); // int values don't matter
         updateDungeonProgressBar(clearedRooms, allDungeonRooms);
+        showMonster(fightState);
     }
 
     public void changeFightOrUseButtonStatus(boolean status){
@@ -253,6 +260,7 @@ public class GameActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.saveButton) {
             gameSaver.save(controller.model);
+            Toast.makeText(getApplicationContext(), "Game Saved", Toast.LENGTH_SHORT).show();
             return true;
         } else if (item.getItemId() == android.R.id.home) {
             onBackPressed();
@@ -290,5 +298,23 @@ public class GameActivity extends AppCompatActivity {
         dialog.setCancelable(false); // Makes the dialog non-cancellable
         dialog.setCanceledOnTouchOutside(false); // The dialog is not cancelled when touched outside its window
         dialog.show();
+    }
+
+    public void showMonster(boolean show){
+        if (show) image.setImageResource(R.drawable.with_moster);
+        else image.setImageResource(R.drawable.without_monster);
+        setBrightness(1.5f);
+    }
+
+    private void setBrightness(float brightness){
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.set(new float[] {
+                brightness, 0, 0, 0, 0,
+                0, brightness, 0, 0, 0,
+                0, 0, brightness, 0, 0,
+                0, 0, 0, 1, 0
+        });
+
+        image.setColorFilter(new ColorMatrixColorFilter(matrix));
     }
 }

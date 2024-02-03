@@ -23,7 +23,7 @@ public class Controller {
         updateButtons();
         gameActivity.updateInventoryView(model.player.getInventory());
 
-        gameActivity.setupView(model.player.getMaxHP(), model.player.getHP(), model.getNumberOfAllRooms(), model.getNumberOfclearedRooms());
+        gameActivity.setupView(model.player.getMaxHP(), model.player.getHP(), model.getNumberOfAllRooms(), model.getNumberOfclearedRooms(), model.player.getFightState());
         if (model.player.getFightState()) startFightState();
     }
 
@@ -55,6 +55,8 @@ public class Controller {
         gameActivity.changeFightOrUseButtonStatus(true);
         gameActivity.changeAllMoveButtonsStatus(false);
 
+        // show monster image
+        gameActivity.showMonster(true);
         gameActivity.showGoblinHPBar(true, model.currentGoblin.getHP(), model.currentGoblin.getMaxHP());
     }
 
@@ -65,6 +67,8 @@ public class Controller {
 
         gameActivity.showGoblinHPBar(false, 0, 0); // int values don't matter
 
+        // remove monster image
+        gameActivity.showMonster(false);
         checkIfGameEnded();
     }
 
@@ -92,10 +96,6 @@ public class Controller {
     }
 
     public void itemSelected(int id){
-        // list item is highlighted inside gameActivity
-        // button is changed from fight to use from controller
-        // item selected passed into model
-
         gameActivity.changeFightOrUseButtonText("Use");
         model.itemSelected(id);
     }
@@ -109,6 +109,8 @@ public class Controller {
         if (model.gameWin){
             gameActivity.gameEnded("Win");
         } else if (model.gameOver){
+            // show monster
+            gameActivity.showMonster(true);
             gameActivity.gameEnded("Lose");
         }
     }

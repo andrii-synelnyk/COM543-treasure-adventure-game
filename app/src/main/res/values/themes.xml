@@ -3,7 +3,8 @@
     <style name="Base.Theme.TreasureAdventure" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="colorPrimary">#3F51B5</item>
+        <item name="colorPrimary">#433A2D</item>
+        <item name="android:windowBackground">@color/my_background_color</item>
     </style>
 
     <style name="Theme.TreasureAdventure" parent="Base.Theme.TreasureAdventure" />

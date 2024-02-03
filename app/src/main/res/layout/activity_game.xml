@@ -16,7 +16,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:src="@drawable/without_monster"/>
 
     <TextView
         android:id="@+id/inventoryCountText"
@@ -26,12 +27,13 @@
         android:layout_marginTop="19dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:textColor="@color/black"/>
 
     <ListView
         android:id="@+id/inventoryList"
-        android:layout_width="201dp"
-        android:layout_height="150dp"
+        android:layout_width="239dp"
+        android:layout_height="152dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,8 +42,8 @@
     <ProgressBar
         android:id="@+id/dungeonProgressBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="112dp"
-        android:layout_height="109dp"
+        android:layout_width="93dp"
+        android:layout_height="95dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="40dp"
         android:indeterminate="false"
@@ -52,15 +54,15 @@
     <ProgressBar
         android:id="@+id/playerHPBar"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="333dp"
-        android:layout_height="19dp"
+        android:layout_width="334dp"
+        android:layout_height="21dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="40dp"
         android:layout_marginTop="18dp"
         android:indeterminate="false"
+        android:progressTint="@color/player_hp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inventoryList"
-        android:progressTint="@color/player_hp"/>
+        app:layout_constraintTop_toBottomOf="@+id/inventoryList" />
 
     <Button
         android:id="@+id/moveUPButton"
@@ -104,8 +106,8 @@
         android:id="@+id/fightOrUseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="69dp"
-        android:layout_marginEnd="59dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginEnd="58dp"
         android:scaleX="1.5"
         android:scaleY="1.5"
         android:text="Attack"
@@ -119,13 +121,14 @@
         android:layout_height="14dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="109dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="110dp"
         android:indeterminate="false"
+        android:progressTint="@color/goblin_hp"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        android:progressTint="@color/goblin_hp"/>
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/dungeonProgressText"
@@ -137,36 +140,38 @@
         app:layout_constraintBottom_toBottomOf="@+id/dungeonProgressBar"
         app:layout_constraintEnd_toEndOf="@+id/dungeonProgressBar"
         app:layout_constraintStart_toStartOf="@+id/dungeonProgressBar"
-        app:layout_constraintTop_toTopOf="@+id/dungeonProgressBar" />
+        app:layout_constraintTop_toTopOf="@+id/dungeonProgressBar"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/playerHPText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
+        android:layout_width="54dp"
+        android:layout_height="21dp"
         android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/playerHPBar"
         app:layout_constraintEnd_toEndOf="@+id/playerHPBar"
-        app:layout_constraintHorizontal_bias="0.038"
+        app:layout_constraintHorizontal_bias="0.028"
         app:layout_constraintStart_toStartOf="@+id/playerHPBar"
         app:layout_constraintTop_toTopOf="@+id/playerHPBar"
         app:layout_constraintVertical_bias="0.0"
-        android:textColor="@color/white"
-        android:textSize="12dp"/>
+        android:gravity="center_vertical"/>
 
     <TextView
         android:id="@+id/goblinHPText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="34dp"
+        android:layout_height="14dp"
         android:layout_marginTop="1dp"
         android:text="TextView"
         android:textColor="@color/white"
         android:textSize="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/goblinHPBar"
         app:layout_constraintEnd_toEndOf="@+id/goblinHPBar"
-        app:layout_constraintHorizontal_bias="0.098"
+        app:layout_constraintHorizontal_bias="0.101"
         app:layout_constraintStart_toStartOf="@+id/goblinHPBar"
         app:layout_constraintTop_toTopOf="@+id/goblinHPBar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:gravity="center_vertical"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

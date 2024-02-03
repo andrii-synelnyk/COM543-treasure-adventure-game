@@ -5,4 +5,5 @@
     <color name="purple_500">#9C27B0</color>
     <color name="goblin_hp">#BD1212</color>
     <color name="player_hp">#229B00</color>
+    <color name="my_background_color">#6A6A6A</color>
 </resources>
