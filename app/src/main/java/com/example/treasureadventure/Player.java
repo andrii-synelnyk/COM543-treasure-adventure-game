@@ -18,9 +18,9 @@ public class Player {
     @ElementList(entry = "item", inline = true, required = false)
     private ArrayList<Item> inventory = new ArrayList<>();
 
-    // JAXB requires a no-arg constructor for serialization
+    // SimpleXML requires a no-arg constructor for serialization
     public Player() {
-        // This constructor is required by JAXB
+        // This constructor is required by SimpleXML
     }
 
     Player (Room currentRoom) {

@@ -13,9 +13,9 @@ public class Goblin {
     @Element
     private int hp;
 
-    // No-argument constructor for JAXB
+    // No-argument constructor for SimpleXML
     public Goblin() {
-        // This constructor is required by JAXB
+        // This constructor is required by SimpleXML
     }
 
     public Goblin(boolean generateStats) {

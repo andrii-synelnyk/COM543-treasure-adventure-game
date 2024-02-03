@@ -24,7 +24,7 @@ public class Room {
     private int id;
 
     public Room() {
-        // This constructor is required by JAXB
+        // This constructor is required by SimpleXML
         initializeConnections();
     }
 

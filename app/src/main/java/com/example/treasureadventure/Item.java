@@ -13,9 +13,9 @@ public class Item {
     private int value;
     private final Random random = new Random();
 
-    // No-argument constructor for JAXB
+    // No-argument constructor for SimpleXML
     public Item() {
-        // This constructor is required by JAXB
+        // This constructor is required by SimpleXML
     }
 
     Item(boolean randomise){
