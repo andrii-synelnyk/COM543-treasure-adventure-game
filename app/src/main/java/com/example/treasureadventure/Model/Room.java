@@ -20,7 +20,6 @@ public class Room {
     private boolean hasGoblin = false;
     @Element(required = false)
     private Goblin thisRoomGoblin;
-
     private static int nextId = 1; // Static variable to keep track of the next ID
     @Element
     private int id;
