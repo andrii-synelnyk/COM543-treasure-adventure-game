@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:innerRadiusRatio="3.5"
+            android:shape="ring"
+            android:thicknessRatio="5.0"
+            android:useLevel="false">
+            <solid android:color="#848484"/>  <!-- Background color of the progress bar -->
+        </shape>
+    </item>
+    <item>
+        <rotate
+            android:fromDegrees="270"
+            android:toDegrees="270">
+            <shape
+                android:innerRadiusRatio="3.5"
+                android:shape="ring"
+                android:thicknessRatio="5.0"
+                android:useLevel="true">  <!-- This line is important to reflect actual progress -->
+                <solid android:color="#FFB623"/>  <!-- Foreground color of the progress bar -->
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

@@ -101,7 +101,7 @@ public class Controller {
     }
 
     public void itemDeselected(){
-        gameActivity.changeFightOrUseButtonText("Fight bare-handed");
+        gameActivity.changeFightOrUseButtonText("Attack");
         model.itemDeselected();
     }
 
